@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.alvin.mvvm'
-version = '1.0.1'
+version = '1.0.2'
 
 android {
     compileSdkVersion 30
@@ -27,8 +27,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -86,7 +86,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.alvin.mvvm'
                 artifactId = 'mvvm_framework'
-                version = '1.0.1'
+                version = '1.0.2'
             }
         }
     }
