@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -28,6 +29,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '11'
+    }
+
+    buildFeatures{
+        dataBinding true
     }
 }
 

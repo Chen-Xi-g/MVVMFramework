@@ -4,6 +4,9 @@
 
 # 基于MVVM进行快速开发， 上手即用。
 
+> 对基础框架进行模块分离, 分为 `MVVM Library`--`MVVM Network Library`
+> 可基于业务需求使用 `MVVM Library` 或 `MVVM Network Library`
+
 ## How to
 
 To get a Git project into your build:
