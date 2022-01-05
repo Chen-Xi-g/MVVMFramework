@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--  加载成功的布局  -->
+        <FrameLayout
+            android:id="@+id/baseContentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/baseTitleLayout" />
+
+        <!--  显示加载中的布局 -->
+        <FrameLayout
+            android:id="@+id/baseLoadingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/baseTitleLayout"
+            android:visibility="gone" />
+
+        <!--  加载失败的布局  -->
+        <FrameLayout
+            android:id="@+id/baseNoNetLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@id/baseContentLayout"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <!--  标题布局  -->
+        <FrameLayout
+            android:id="@+id/baseTitleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:minHeight="50dp" />
+    </RelativeLayout>
+</layout>

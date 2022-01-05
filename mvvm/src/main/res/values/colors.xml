@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="color_1a1a1a">#1A1A1A</color>
+    <color name="color_333333">#333333</color>
+    <color name="base_loading_layout_color">#03A9F4</color>
+</resources>
