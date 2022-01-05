@@ -1,6 +1,6 @@
 
 
-[![MVVM](https://badgen.net/badge/Alvin/mvvm/green?icon=github)](https://github.com/Chen-Xi-g/MVVMFramework)[![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework)
+[![MVVM](https://badgen.net/badge/Alvin/mvvm/green?icon=github)](https://github.com/Chen-Xi-g/MVVMFramework)  [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework)
 
 # 基于MVVM进行快速开发， 上手即用。
 
