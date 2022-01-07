@@ -35,6 +35,8 @@ class LifecycleCallback : Application.ActivityLifecycleCallbacks {
     }
 
     override fun onActivityDestroyed(activity: Activity) {
+        // 使用RemoveActivity而不是使用FinishActivity。
+        // Activity横竖屏切换、主题切换时，Activity会重新执行生命周期，避免应用崩溃。
         appManager.removeActivity(activity)
     }
 }

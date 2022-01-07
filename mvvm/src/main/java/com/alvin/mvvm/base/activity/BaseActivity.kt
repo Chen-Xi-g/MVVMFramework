@@ -10,7 +10,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.ColorRes
-import com.alvin.mvvm.help.GlobalMVPBuilder
+import com.alvin.mvvm.help.GlobalMVVMBuilder
 import com.gyf.immersionbar.ktx.immersionBar
 import me.jessyan.autosize.AutoSizeCompat
 import me.jessyan.autosize.internal.CustomAdapt
@@ -27,7 +27,7 @@ abstract class BaseActivity : AbstractActivity(), CustomAdapt {
     /**
      * 获取默认的全局设置.
      */
-    val iSettingActivity = GlobalMVPBuilder.iSettingBaseActivity
+    val iSettingActivity = GlobalMVVMBuilder.iSettingBaseActivity
 
     /**
      * 当前Activity是否可见.

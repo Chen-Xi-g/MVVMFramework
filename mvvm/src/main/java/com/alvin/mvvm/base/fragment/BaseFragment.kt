@@ -4,7 +4,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.ColorRes
-import com.alvin.mvvm.help.GlobalMVPBuilder
+import com.alvin.mvvm.help.GlobalMVVMBuilder
 import com.gyf.immersionbar.ktx.immersionBar
 import me.jessyan.autosize.internal.CustomAdapt
 
@@ -20,7 +20,7 @@ abstract class BaseFragment : AbstractFragment(), CustomAdapt {
     /**
      * 获取默认的全局设置.
      */
-    val iSettingBaseFragment = GlobalMVPBuilder.iSettingBaseFragment
+    val iSettingBaseFragment = GlobalMVVMBuilder.iSettingBaseFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

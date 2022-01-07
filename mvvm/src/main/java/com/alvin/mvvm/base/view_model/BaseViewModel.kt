@@ -14,7 +14,7 @@ import com.alvin.mvvm.base.livedata.StringLiveData
  */
 open class BaseViewModel : ViewModel() {
 
-    // 默认的加载提示框
+    // 默认的网络请求LiveData
     val httpCallback: HttpCallback by lazy { HttpCallback() }
 
     inner class HttpCallback {

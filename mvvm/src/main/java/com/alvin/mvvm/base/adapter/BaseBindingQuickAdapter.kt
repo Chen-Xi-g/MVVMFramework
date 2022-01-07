@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 
 /**
- * <h3> 作用类描述：使用ViewBinding初始化Adapter</h3>
+ * <h3> 作用类描述：使用DataBinding初始化Adapter</h3>
  *
  * @Package :        com.yleanlink.mvp.adapter
  * @Date :           2021/9/14-14:57

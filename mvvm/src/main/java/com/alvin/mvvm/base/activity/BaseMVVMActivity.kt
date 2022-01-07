@@ -5,7 +5,7 @@ import androidx.databinding.ViewDataBinding
 import com.alvin.mvvm.base.view_model.BaseViewModel
 
 /**
- * <h3> 作用类描述：所有Activity最终需要继承的MVP类</h3>
+ * <h3> 作用类描述：所有Activity最终需要继承的MVVM类</h3>
  *
  * @Package :        com.alvin.mvvm.base.activity
  * @Date :           2021/12/18

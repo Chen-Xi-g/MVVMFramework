@@ -13,7 +13,7 @@ import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigator
 
 /**
- * <h3> 作用类描述：</h3>
+ * <h3> 作用类描述：通过重写 FragmentNavigator 将原来的 FragmentTransaction.replace() 方法替换为 hide()/Show()</h3>
  *
  * @Package :        com.alvin.mvvm.base.navigation
  * @Date :           2021/12/24-10:59

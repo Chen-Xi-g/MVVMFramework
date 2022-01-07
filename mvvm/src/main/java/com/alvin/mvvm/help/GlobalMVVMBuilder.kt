@@ -9,7 +9,7 @@ package com.alvin.mvvm.help
  * @Description:    通过Build模式全局设置Activity属性
  * @author Alvin
  */
-object GlobalMVPBuilder {
+object GlobalMVVMBuilder {
     /**
      * 加载默认的 Activity 设置
      *
@@ -31,7 +31,7 @@ object GlobalMVPBuilder {
         iSettingBaseActivity: ISettingBaseActivity = DefaultSettingActivity(),
         iSettingBaseFragment: ISettingBaseFragment = DefaultSettingFragment()
     ) {
-        GlobalMVPBuilder.iSettingBaseActivity = iSettingBaseActivity
-        GlobalMVPBuilder.iSettingBaseFragment = iSettingBaseFragment
+        GlobalMVVMBuilder.iSettingBaseActivity = iSettingBaseActivity
+        GlobalMVVMBuilder.iSettingBaseFragment = iSettingBaseFragment
     }
 }
