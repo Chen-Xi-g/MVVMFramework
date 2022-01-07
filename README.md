@@ -170,7 +170,9 @@ open class BaseViewModel : ViewModel() {
 
 ## 源码
 
-具体的实现过程已经在[Github](https://github.com/Chen-Xi-g/MVVMFramework)开源，并且有非常完整的注释。如果不想关注具体的实现，直接通过`Gradle`引入`MVVM`的依赖即可使用。
+具体的实现过程已经在[Github](https://github.com/Chen-Xi-g/MVVMFramework)开源，并且有非常完整的注释，后续将会对`Sample`完善。
+
+如果不想关注具体的实现，直接通过`Gradle`引入`MVVM`的依赖即可使用。
 
 ## 关于我
 
