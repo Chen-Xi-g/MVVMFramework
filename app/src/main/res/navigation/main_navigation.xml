@@ -25,5 +25,8 @@
         <argument
             android:name="msg"
             app:argType="string" />
+        <argument
+            android:name="song"
+            app:argType="string" />
     </fragment>
 </navigation>

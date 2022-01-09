@@ -168,6 +168,18 @@ open class BaseViewModel : ViewModel() {
 
 通过`Lifecycle`结合`AppManager`对Activity的进出栈管理。
 
+## 鸣谢
+
+> 该框架参考以下优秀开源项目,特此鸣谢. 不分先后按首字母排序.
+
+* [AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode) 安卓工具类库
+* [AVLoadingIndicatorView](https://github.com/HarlonWang/AVLoadingIndicatorView) 加载Loading动画
+* [BRVAH](https://github.com/CymChad/BaseRecyclerViewAdapterHelper) 万能Adapter
+* [DKVideoPlayer](https://github.com/Doikki/DKVideoPlayer) 安卓视频播放器
+* [JetPackMvvm](https://github.com/hegaojian/JetpackMvvm) 基于MVVM模式集成JetPack玩Android项目
+* [Square](https://github.com/square) Square公司的 Retrofit  + OkHttp + Moshi
+* [UnPeek-LiveData](https://github.com/KunMinX/UnPeek-LiveData) 解决LiveData数据倒灌
+
 ## 源码
 
 具体的实现过程已经在[Github](https://github.com/Chen-Xi-g/MVVMFramework)开源，并且有非常完整的注释，后续将会对`Sample`完善。

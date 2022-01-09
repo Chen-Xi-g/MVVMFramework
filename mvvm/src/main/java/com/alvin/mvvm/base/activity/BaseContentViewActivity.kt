@@ -249,7 +249,7 @@ abstract class BaseContentViewActivity : BaseDialogActivity() {
     open fun isStatusPadding(): Boolean = iSettingActivity.isStatusPadding()
 
     /**
-     * 获取自定义标题布局 详情见
+     * 是否显示标题布局
      *
      * @see com.alvin.mvvm.help.ISettingBaseFragment.putTitleView
      * @return true： 加载布局    false： 不加载布局
@@ -257,7 +257,7 @@ abstract class BaseContentViewActivity : BaseDialogActivity() {
     open fun titleLayoutView(): Boolean = true
 
     /**
-     * 获取自定义的第一次加载Loading布局
+     * 是否显示加载布局
      *
      * @see com.alvin.mvvm.help.ISettingBaseFragment.putLoadingView
      * @return true： 加载布局    false： 不加载布局
@@ -265,7 +265,7 @@ abstract class BaseContentViewActivity : BaseDialogActivity() {
     open fun loadingLayoutView(): Boolean = true
 
     /**
-     * 获取自定义失败布局
+     * 是否显示失败布局
      *
      * @see com.alvin.mvvm.help.ISettingBaseFragment.putNoNetView
      * @return true： 加载布局    false： 不加载布局

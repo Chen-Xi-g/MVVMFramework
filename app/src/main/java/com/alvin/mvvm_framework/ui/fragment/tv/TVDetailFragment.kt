@@ -23,10 +23,18 @@ class TVDetailFragment : BaseMVVMFragment<TVDetailViewModel, FragmentTvDetailBin
 
     lateinit var id: String
     lateinit var msg: String
+    lateinit var song: String
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        showLoadingLayout()
+        super.onViewCreated(view, savedInstanceState)
+    }
 
     override fun initView(view: View, savedInstanceState: Bundle?) {
         id = arguments?.getString("id")?:""
         msg = arguments?.getString("msg")?:""
+        song = arguments?.getString("song")?:""
+        setTitleName(song)
     }
 
     override fun obtainData() {
@@ -52,6 +60,21 @@ class TVDetailFragment : BaseMVVMFragment<TVDetailViewModel, FragmentTvDetailBin
             dataBinding.player.setVideoController(controller)
             dataBinding.player.start()
         }
+    }
+
+    override fun reload() {
+        super.reload()
+        hideErrorLayout()
+        loadData()
+    }
+
+    override fun noNetClickId(): Int {
+        return R.id.btnRetry
+    }
+
+    override fun onFailed(errorMsg: String?) {
+        super.onFailed(errorMsg)
+        showErrorLayout()
     }
 
     override fun onPause() {

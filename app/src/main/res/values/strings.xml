@@ -3,4 +3,5 @@
     <string name="str_tv">TV</string>
     <string name="str_music">Music</string>
     <string name="str_hint_mv">请输入MV名称</string>
+    <string name="str_retry">点击重试</string>
 </resources>

@@ -66,4 +66,5 @@ dependencies {
     implementation 'xyz.doikki.android.dkplayer:dkplayer-ui:3.3.5'
     // 使用 IJKPlayer 解码
     implementation 'xyz.doikki.android.dkplayer:player-ijk:3.3.5'
+    implementation 'com.blankj:utilcodex:1.31.0'
 }

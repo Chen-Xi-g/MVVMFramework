@@ -44,4 +44,18 @@ class ActivitySetting :  ISettingBaseActivity{
     ): T? {
         return DataBindingUtil.inflate(inflater, R.layout.global_title,parent,true)
     }
+
+    override fun <T : ViewDataBinding?> putLoadingView(
+        inflater: LayoutInflater,
+        parent: ViewGroup
+    ): T? {
+        return DataBindingUtil.inflate(inflater, R.layout.global_loading,parent,true)
+    }
+
+    override fun <T : ViewDataBinding?> putNoNetView(
+        inflater: LayoutInflater,
+        parent: ViewGroup
+    ): T? {
+        return DataBindingUtil.inflate(inflater, R.layout.global_error,parent,true)
+    }
 }

@@ -31,7 +31,7 @@
             android:id="@+id/baseNoNetLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignTop="@id/baseContentLayout"
+            android:layout_below="@id/baseTitleLayout"
             android:visibility="gone"
             tools:visibility="visible" />
 
