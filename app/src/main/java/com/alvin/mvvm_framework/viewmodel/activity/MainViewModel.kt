@@ -1,9 +1,9 @@
-package com.alvin.mvvm_framework.viewmodel
+package com.alvin.mvvm_framework.viewmodel.activity
 
 import com.alvin.mvvm.base.view_model.BaseViewModel
 
 /**
- * <h3> 作用类描述： [com.alvin.mvvm_framework.ui.MainActivity] 的 `VideModel` 实现类</h3>
+ * <h3> 作用类描述： [com.alvin.mvvm_framework.ui.activity.MainActivity] 的 `VideModel` 实现类</h3>
  *
  * @Package :        com.alvin.mvvm_framework.viewmodel
  * @Date :           2022/1/5

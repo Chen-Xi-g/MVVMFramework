@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.alvin.mvvm_framework.viewmodel.fragment.tv.TVListViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:hint="@string/str_hint_mv"
+            android:textColorHint="#999999"
+            android:textSize="14sp"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:id="@+id/editMsg"
+            android:text="@={viewModel.searchMsg}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <include layout="@layout/include_recycler_view" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--设置未选中字体央视-->
+    <style name="bottom_tab_active">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!--设置选中字体样式-->
+    <style name="bottom_tab_inactive">
+        <item name="android:textSize">12sp</item>
+    </style>
+</resources>

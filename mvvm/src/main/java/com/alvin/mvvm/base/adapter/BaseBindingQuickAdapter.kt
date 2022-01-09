@@ -20,6 +20,8 @@ abstract class BaseBindingListAdapter<T, DB : ViewDataBinding>(
     abstract fun convert(holder: BaseViewHolder, item: T, dataBinding: DB?)
 
     override fun convert(holder: BaseViewHolder, item: T) {
-        convert(holder, item, DataBindingUtil.bind(holder.itemView))
+        val binding = DataBindingUtil.bind<DB>(holder.itemView)
+        convert(holder, item, binding)
+        binding?.executePendingBindings()
     }
 }

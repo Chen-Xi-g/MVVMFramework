@@ -23,7 +23,7 @@ class DefaultSettingActivity : ISettingBaseActivity {
         tvBarRight: AppCompatTextView?,
         ibBarRight: AppCompatImageButton?
     ) {
-        ibBarBack?.let {
+        ibBarBack?.setOnClickListener {
             activity.finish()
         }
     }

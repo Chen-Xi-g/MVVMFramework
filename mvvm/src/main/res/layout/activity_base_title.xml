@@ -28,7 +28,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvBarTitle"
             android:layout_width="wrap_content"
-            android:layout_height="44dp"
+            android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:maxWidth="250dp"
@@ -44,7 +44,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvBarRight"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginEnd="15dp"
             android:gravity="center"
             android:paddingLeft="10dp"
