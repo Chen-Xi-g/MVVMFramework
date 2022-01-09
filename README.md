@@ -10,6 +10,8 @@
 
 ## How to
 
+> 具体使用请查看library中的注释,已经非常清楚.
+
 To get a Git project into your build:
 
 **Step 1**. Add the JitPack repository to your build file
