@@ -6,6 +6,7 @@
 
 > 对基础框架进行模块分离, 分为 `MVVM Library`--`MVVM Network Library`
 > 可基于业务需求使用 `MVVM Library` 或 `MVVM Network Library`
+> 该项目仅限于学习交流.
 
 ## How to
 
@@ -179,6 +180,7 @@ open class BaseViewModel : ViewModel() {
 * [JetPackMvvm](https://github.com/hegaojian/JetpackMvvm) 基于MVVM模式集成JetPack玩Android项目
 * [Square](https://github.com/square) Square公司的 Retrofit  + OkHttp + Moshi
 * [UnPeek-LiveData](https://github.com/KunMinX/UnPeek-LiveData) 解决LiveData数据倒灌
+* [优客API](https://api.iyk0.com/) 免费的API接口服务
 
 ## 源码
 
