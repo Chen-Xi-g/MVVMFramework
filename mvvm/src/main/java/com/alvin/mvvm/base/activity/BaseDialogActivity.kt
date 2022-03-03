@@ -35,7 +35,7 @@ abstract class BaseDialogActivity : BaseActivity() {
     /**
      * 是否关闭Dialog
      *
-     * @param isNotDismiss true 关闭; false 不关闭
+     * @param isNotDismiss true 不关闭; false 关闭
      */
     fun dismissLoading(isNotDismiss: Boolean = false) {
         if (dialog.isShowing && !isNotDismiss) {

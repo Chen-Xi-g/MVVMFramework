@@ -9,7 +9,7 @@ import com.gyf.immersionbar.ktx.immersionBar
 import me.jessyan.autosize.internal.CustomAdapt
 
 /**
- * <h3> 作用类描述：</h3>
+ * <h3> 作用类描述：基础的Fragment功能，做相关初始化和适配。</h3>
  *
  * @Package :        com.alvin.mvvm.base.fragment
  * @Date :           2021/12/24-17:39

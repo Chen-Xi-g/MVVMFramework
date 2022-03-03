@@ -18,6 +18,7 @@ object JetpackMaven {
 
     const val mvvmArtifactId = "mvvm_framework"
     const val mvvmNetworkArtifactId = "mvvm_network"
+    const val mvvmNavigationArtifactId = "mvvm_navigation"
 }
 
 object AndroidConfig {
@@ -52,6 +53,7 @@ object Dependencies {
     private const val materialDialogVersion = "3.3.0"
 
     private const val adapterVersion = "3.0.4"
+    private const val recyclerDividerVersion = "3.5.0"
 
     private const val loadingAnimVersion = "2.1.3"
 
@@ -100,6 +102,10 @@ object Dependencies {
 
     /*  Adapter  */
     const val adapter = "com.github.CymChad:BaseRecyclerViewAdapterHelper:$adapterVersion"
+
+    /*  分割  */
+    const val recyclerDivider = "com.github.fondesa:recycler-view-divider:$recyclerDividerVersion"
+
 
     /*  加载动画  */
     const val loadingAnim = "com.wang.avi:library:$loadingAnimVersion"

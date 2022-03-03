@@ -1,4 +1,4 @@
-package com.alvin.mvvm.base.navigation
+package com.alvin.mvvm_navigation
 
 import android.content.Context
 import android.os.Bundle
@@ -15,7 +15,7 @@ import androidx.navigation.fragment.FragmentNavigator
 /**
  * <h3> 作用类描述：通过重写 FragmentNavigator 将原来的 FragmentTransaction.replace() 方法替换为 hide()/Show()</h3>
  *
- * @Package :        com.alvin.mvvm.base.navigation
+ * @Package :        com.alvin.mvvm_navigation.base.navigation
  * @Date :           2021/12/24-10:59
  * @author Alvin
  */

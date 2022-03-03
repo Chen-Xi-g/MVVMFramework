@@ -1,10 +1,9 @@
-package com.alvin.mvvm.base.navigation
+package com.alvin.mvvm_navigation
 
 import android.view.View
 import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
-import com.alvin.mvvm.R
 
 class NavHostFragmentHideShow : NavHostFragment() {
 

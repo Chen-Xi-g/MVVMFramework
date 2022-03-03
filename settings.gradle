@@ -2,3 +2,4 @@ rootProject.name = "MVVMFramework"
 include ':sample'
 include ':mvvm'
 include ':mvvm_network'
+include ':mvvm_navigation'

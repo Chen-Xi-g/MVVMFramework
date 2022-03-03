@@ -1,5 +1,6 @@
 package com.alvin.mvvm.base.activity
 
+import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -378,15 +379,33 @@ abstract class BaseContentViewActivity : BaseDialogActivity() {
     }
 
     /**
+     * 加载失败时,是否显示Toast
+     *
+     * @return Boolean
+     */
+    open fun isErrorToast(): Boolean = iSettingActivity.isErrorToast()
+
+    /**
      * 网络请求发生异常
      *
      * @param errorMsg 错误信息
      */
     open fun onFailed(errorMsg: String?) {
+        dismissLoading()
         hideLoadingLayout()
-        errorMsg?.let {
-            if (iSettingActivity.isErrorToast()) {
-                Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show()
+        if (isErrorToast() && !errorMsg.isNullOrEmpty()) {
+            Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        when (newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> immersionBar {
+                statusBarDarkFont(!barLight())
+            }
+            Configuration.UI_MODE_NIGHT_YES -> immersionBar {
+                statusBarDarkFont(barLight())
             }
         }
     }

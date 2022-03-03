@@ -1,5 +1,6 @@
 package com.alvin.mvvm.base.fragment
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -262,7 +263,7 @@ abstract class BaseContentViewFragment : BaseDialogFragment() {
     open fun isStatusPadding(): Boolean = iSettingBaseFragment.isStatusPadding()
 
     /**
-     * 是否显示标题布局
+     * 获取自定义标题布局 详情见
      *
      * @see com.alvin.mvvm.help.ISettingBaseFragment.putTitleView
      * @return true： 加载布局    false： 不加载布局
@@ -270,7 +271,7 @@ abstract class BaseContentViewFragment : BaseDialogFragment() {
     open fun titleLayoutView(): Boolean = true
 
     /**
-     * 是否显示加载布局
+     * 获取自定义的第一次加载Loading布局
      *
      * @see com.alvin.mvvm.help.ISettingBaseFragment.putLoadingView
      * @return true： 加载布局    false： 不加载布局
@@ -278,7 +279,7 @@ abstract class BaseContentViewFragment : BaseDialogFragment() {
     open fun loadingLayoutView(): Boolean = true
 
     /**
-     * 是否显示失败布局
+     * 获取自定义失败布局
      *
      * @see com.alvin.mvvm.help.ISettingBaseFragment.putNoNetView
      * @return true： 加载布局    false： 不加载布局
@@ -388,9 +389,11 @@ abstract class BaseContentViewFragment : BaseDialogFragment() {
     }
 
     /**
-     * 之情错误时是否显示Toast
+     * 加载失败时,是否显示Toast
+     *
+     * @return Boolean
      */
-    open fun isErrorToast() = iSettingBaseFragment.isErrorToast()
+    open fun isErrorToast(): Boolean = iSettingBaseFragment.isErrorToast()
 
     /**
      * 网络请求发生异常
@@ -398,9 +401,21 @@ abstract class BaseContentViewFragment : BaseDialogFragment() {
      * @param errorMsg 错误信息
      */
     open fun onFailed(errorMsg: String?) {
-        errorMsg?.let {
-            if (isErrorToast()) {
-                Toast.makeText(context, errorMsg, Toast.LENGTH_SHORT).show()
+        dismissLoading()
+        hideErrorLayout()
+        if (isErrorToast() && !errorMsg.isNullOrEmpty()) {
+            Toast.makeText(context, errorMsg, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        when (newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> immersionBar {
+                statusBarDarkFont(!barLight())
+            }
+            Configuration.UI_MODE_NIGHT_YES -> immersionBar {
+                statusBarDarkFont(barLight())
             }
         }
     }

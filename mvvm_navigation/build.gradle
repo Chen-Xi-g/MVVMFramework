@@ -1,14 +1,10 @@
 apply from:("../gradle/build_library.gradle")
 
 dependencies {
-
-    api Dependencies.retrofit
-    api Dependencies.retrofitMoshi
-    api Dependencies.retrofitBaseUrl
-
-    api Dependencies.okHttp
-    api Dependencies.okHttpInterceptor
-
+    // Navigation
+    api Dependencies.navigationFragmentKtx
+    api Dependencies.navigationUIKtx
+    api Dependencies.navigationCommonKtx
 }
 
 afterEvaluate {
@@ -18,7 +14,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = JetpackMaven.mavenGroup
-                artifactId = JetpackMaven.mvvmNetworkArtifactId
+                artifactId = JetpackMaven.mvvmNavigationArtifactId
                 version = JetpackMaven.mavenVersion
             }
         }

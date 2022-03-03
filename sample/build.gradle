@@ -60,4 +60,5 @@ dependencies {
     implementation Dependencies.constraintLayout
     implementation project(path: ':mvvm')
     implementation project(path: ':mvvm_network')
+    implementation project(path: ':mvvm_navigation')
 }

@@ -1,0 +1,46 @@
+apply plugin:'com.android.library'
+apply plugin:'kotlin-android'
+apply plugin:'kotlin-kapt'
+apply plugin:'maven-publish'
+
+group = JetpackMaven.mavenGroup
+version = JetpackMaven.mavenVersion
+
+android {
+    compileSdk AndroidConfig.compileSdk
+
+    defaultConfig {
+        minSdk AndroidConfig.minSdk
+        targetSdk AndroidConfig.targetSdk
+        // 当将minSdkVersion设置为20或更低时需要
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures{
+        dataBinding true
+    }
+}
+
+dependencies {
+
+    implementation Dependencies.kotlinStdLib
+    implementation Dependencies.androidCore
+    implementation Dependencies.androidAppcompat
+    implementation Dependencies.androidMaterial
+
+}

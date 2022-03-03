@@ -2,6 +2,7 @@ package com.alvin.mvvm.base.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,8 @@ import com.alvin.mvvm.R
 import com.alvin.mvvm.base.view_model.BaseViewModel
 import com.alvin.mvvm.callback.IRefreshLoadListener
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.fondesa.recyclerviewdivider.dividerBuilder
+import com.fondesa.recyclerviewdivider.staggeredDividerBuilder
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.scwang.smart.refresh.layout.api.RefreshFooter
 import com.scwang.smart.refresh.layout.api.RefreshHeader
@@ -125,7 +128,7 @@ abstract class BaseListFragment<VM : BaseViewModel, DB : ViewDataBinding>(
      * 刷新数据
      */
     override fun onRefresh(refreshLayout: RefreshLayout) {
-        page = 1
+        page = iSettingBaseFragment.defaultPage()
         iRefreshLoadListener?.refresh()
     }
 
@@ -165,7 +168,7 @@ abstract class BaseListFragment<VM : BaseViewModel, DB : ViewDataBinding>(
      * @param emptyView
      */
     fun <T> SmartRefreshLayout.finish(
-        list: MutableList<T>,
+        list: Collection<T>,
         adapter: BaseQuickAdapter<T, *>,
         pageSize: Int = iSettingBaseFragment.defaultPageSize(),
         footerView: View = getFooterView(context, recyclerView),
@@ -217,6 +220,29 @@ abstract class BaseListFragment<VM : BaseViewModel, DB : ViewDataBinding>(
             emptyView(),
             recyclerView.parent as ViewGroup, false
         )
+    }
+
+    /**
+     * 添加列表分割线
+     *
+     * @param size 分割线尺寸 尺寸为DP
+     * @param isStaggered 是否为瀑布流
+     */
+    protected fun addDivider(size: Int, isStaggered: Boolean = false) {
+        if (isStaggered) {
+            activity.staggeredDividerBuilder()
+                .size(size, TypedValue.COMPLEX_UNIT_DIP)
+                .asSpace()
+                .hideSideDividers()
+                .build()
+                .addTo(recyclerView)
+        } else {
+            activity.dividerBuilder()
+                .size(size, TypedValue.COMPLEX_UNIT_DIP)
+                .asSpace()
+                .build()
+                .addTo(recyclerView)
+        }
     }
 
     /**
