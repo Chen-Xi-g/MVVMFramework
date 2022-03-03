@@ -31,7 +31,8 @@ allprojects {
 
 ```
 dependencies {
-	implementation 'com.github.Chen-Xi-g:MVVMFramework:v1.0.1'
+	// 具体版本号请查看 README顶部徽章
+	implementation 'com.github.Chen-Xi-g:MVVMFramework:v???'
 }
 ```
 
