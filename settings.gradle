@@ -1,4 +1,4 @@
 rootProject.name = "MVVMFramework"
-include ':app'
+include ':sample'
 include ':mvvm'
 include ':mvvm_network'

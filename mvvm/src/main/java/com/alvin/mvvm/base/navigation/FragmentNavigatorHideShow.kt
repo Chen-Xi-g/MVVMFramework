@@ -63,7 +63,7 @@ class FragmentNavigatorHideShow(
             ft.setMaxLifecycle(fragment, Lifecycle.State.STARTED)
             ft.hide(fragment)
         }
-        var frag: Fragment? = null
+        var frag: Fragment?
         val tag = destination.id.toString()
         frag = mFragmentManager.findFragmentByTag(tag)
         if (frag != null) {

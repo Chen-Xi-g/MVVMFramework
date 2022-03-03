@@ -8,7 +8,6 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.net.Proxy
-import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
@@ -212,7 +211,8 @@ class HttpManager {
         requestTag: String = "Request",
         responseTag: String = "Response"
     ) = apply {
-        this.loggingInterceptor = AndroidLoggingInterceptor.build()
+        this.loggingInterceptor =
+            AndroidLoggingInterceptor.build(isDebug, hideVerticalLine, requestTag, responseTag)
     }
 
     /**

@@ -5,16 +5,15 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'com.alvin.mvvm'
-version = '1.0.4'
+group = JetpackMaven.mavenGroup
+version = JetpackMaven.mavenVersion
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdk AndroidConfig.compileSdk
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 30
+        minSdk AndroidConfig.minSdk
+        targetSdk AndroidConfig.targetSdk
         // 当将minSdkVersion设置为20或更低时需要
         multiDexEnabled true
     }
@@ -41,41 +40,41 @@ android {
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.30"
-    implementation "androidx.core:core-ktx:1.5.0"
-    implementation "androidx.appcompat:appcompat:1.3.0"
-    implementation "com.google.android.material:material:1.3.0"
+    implementation Dependencies.kotlinStdLib
+    implementation Dependencies.androidCore
+    implementation Dependencies.androidAppcompat
+    implementation Dependencies.androidMaterial
     // lifecycle
-    api "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
-    api "androidx.lifecycle:lifecycle-common-java8:2.2.0"
-    api "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    api Dependencies.lifecycleRuntimeKtx
+    api Dependencies.lifecycleCommonKtx
+    api Dependencies.lifecycleExtensionsKtx
     // ViewModel
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    api Dependencies.lifecycleViewModelKtx
     // LiveData
-    api "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+    api Dependencies.lifecycleLiveDataKtx
     // Navigation
-    api "androidx.navigation:navigation-fragment-ktx:2.3.5"
-    api "androidx.navigation:navigation-ui-ktx:2.3.5"
-    api "androidx.navigation:navigation-common-ktx:2.3.5"
+    api Dependencies.navigationFragmentKtx
+    api Dependencies.navigationUIKtx
+    api Dependencies.navigationCommonKtx
     // 状态栏工具类
-    api "com.gyf.immersionbar:immersionbar:3.0.0"
-    api "com.gyf.immersionbar:immersionbar-ktx:3.0.0"
+    api Dependencies.immersionBar
+    api Dependencies.immersionBarKtx
     // 屏幕适配
-    api "com.github.JessYanCoding:AndroidAutoSize:v1.2.1"
+    api Dependencies.androidAutoSize
 
     // Recyclerview 刷新
-    api  "com.scwang.smart:refresh-layout-kernel:2.0.3"
-    api  "com.scwang.smart:refresh-header-classics:2.0.3"
-    api  "com.scwang.smart:refresh-footer-classics:2.0.3"
+    api  Dependencies.refreshCore
+    api  Dependencies.refreshHeaderClassics
+    api  Dependencies.refreshFooterClassics
 
     // Dialog
-    api "com.afollestad.material-dialogs:core:3.3.0"
+    api Dependencies.materialDialog
 
     // Adapter
-    api "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
+    api Dependencies.adapter
 
-    // 基类改造
-    api "com.wang.avi:library:2.1.3"
+    // 加载动画
+    api Dependencies.loadingAnim
 }
 
 afterEvaluate {
@@ -84,9 +83,9 @@ afterEvaluate {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.alvin.mvvm'
-                artifactId = 'mvvm_framework'
-                version = '1.0.4'
+                groupId = JetpackMaven.mavenGroup
+                artifactId = JetpackMaven.mvvmArtifactId
+                version = JetpackMaven.mavenVersion
             }
         }
     }

@@ -1,0 +1,25 @@
+// 支持Kotlin的BuildSrc
+plugins {
+    id("org.jetbrains.kotlin.jvm") version "1.5.30"
+}
+repositories {
+    maven{
+        url = "https://maven.aliyun.com/repository/central"
+    }
+}
+allprojects{
+    repositories{
+        maven{
+            url = "https://maven.aliyun.com/repository/google"
+        }
+        maven{
+            url = "https://maven.aliyun.com/repository/central"
+        }
+    }
+}
+dependencies {
+    implementation gradleApi()
+    implementation "com.android.tools.build:gradle:7.0.2"
+    implementation "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30"
+
+}
