@@ -65,6 +65,8 @@ object Dependencies {
 
     private const val interceptorVersion = "1.6.0"
 
+    private const val utilsVersion = "1.31.0"
+
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     const val androidCore = "androidx.core:core-ktx:$coreVersion"
     const val androidAppcompat = "androidx.appcompat:appcompat:$appcompatVersion"
@@ -95,7 +97,9 @@ object Dependencies {
     /*  RecyclerView 刷新控件  */
     const val refreshCore = "com.scwang.smart:refresh-layout-kernel:$refreshVersion"
     const val refreshHeaderClassics = "com.scwang.smart:refresh-header-classics:$refreshVersion"
+    const val materialHeader = "com.scwang.smart:refresh-header-material:$refreshVersion"
     const val refreshFooterClassics = "com.scwang.smart:refresh-footer-classics:$refreshVersion"
+    const val ballFooter = "com.scwang.smart:refresh-footer-ball:$refreshVersion"
 
     /*  Material Dialog  */
     const val materialDialog = "com.afollestad.material-dialogs:core:$materialDialogVersion"
@@ -120,4 +124,7 @@ object Dependencies {
 
     /*  拦截器  */
     const val okHttpInterceptor = "com.safframework.log:saf-logginginterceptor:$interceptorVersion"
+
+    /*  工具类  */
+    const val utils = "com.blankj:utilcodex:$utilsVersion"
 }

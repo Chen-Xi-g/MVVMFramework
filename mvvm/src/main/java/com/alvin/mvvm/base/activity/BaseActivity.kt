@@ -165,9 +165,9 @@ abstract class BaseActivity : AbstractActivity(), CustomAdapt {
     }
 
     override fun getSizeInDp(): Float = if (isWidth() == null) {
-        screenDesignWidth().toFloat()
+        screenDesignWidth()
     } else {
-        if (isWidth() == true) screenDesignWidth().toFloat() else screenDesignHeight().toFloat()
+        if (isWidth() == true) screenDesignWidth() else screenDesignHeight()
     }
 
 
@@ -182,7 +182,7 @@ abstract class BaseActivity : AbstractActivity(), CustomAdapt {
     override fun getResources(): Resources {
         AutoSizeCompat.autoConvertDensity(
             (super.getResources()),
-            screenDesignWidth().toFloat(),
+            screenDesignWidth(),
             if (isWidth() == null) {
                 super.getResources().configuration?.orientation == Configuration.ORIENTATION_PORTRAIT
             } else {
@@ -197,14 +197,14 @@ abstract class BaseActivity : AbstractActivity(), CustomAdapt {
      *
      * 375（默认）
      */
-    open fun screenDesignWidth(): Int = iSettingActivity.screenDesignWidth()
+    open fun screenDesignWidth(): Float = iSettingActivity.screenDesignWidth()
 
     /**
      * 设置屏幕适配的高 设计图的宽度.
      *
      * 640（默认）
      */
-    open fun screenDesignHeight(): Int = iSettingActivity.screenDesignHeight()
+    open fun screenDesignHeight(): Float = iSettingActivity.screenDesignHeight()
 
     /**
      * 是否透明状态栏

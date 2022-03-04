@@ -46,14 +46,14 @@ interface ISettingBaseActivity {
      *
      * @return 375（默认）
      */
-    fun screenDesignWidth(): Int = 375
+    fun screenDesignWidth(): Float = 375F
 
     /**
      * 设置屏幕适配的高 设计图的宽度
      *
      * @return 640（默认）
      */
-    fun screenDesignHeight(): Int = 640
+    fun screenDesignHeight(): Float = 640F
 
     /**
      * 是否透明状态栏
