@@ -100,6 +100,13 @@ interface ISettingBaseFragment {
     fun noNetClickId(): Int = R.id.clNoNet
 
     /**
+     * 加载失败的时候是否显示加载失败布局
+     *
+     * @return Boolean false 不需要显示(默认值), true 需要显示
+     */
+    fun isShowNoNetLayout(): Boolean = false
+
+    /**
      * 设置自定义标题布局.
      *
      * 如果需要各种自定义属性，请继承BaseMVPActivity再写一个CustomBaseActivity.

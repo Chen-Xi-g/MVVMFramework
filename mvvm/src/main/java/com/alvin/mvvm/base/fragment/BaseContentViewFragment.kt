@@ -396,13 +396,25 @@ abstract class BaseContentViewFragment : BaseDialogFragment() {
     open fun isErrorToast(): Boolean = iSettingBaseFragment.isErrorToast()
 
     /**
+     * 加载失败时, 是否显示失败布局
+     *
+     * @return Boolean
+     */
+    open fun isShowNoNetLayout(): Boolean = iSettingBaseFragment.isShowNoNetLayout()
+
+    /**
      * 网络请求发生异常
      *
      * @param errorMsg 错误信息
      */
     open fun onFailed(errorMsg: String?) {
+        // 需要显示失败布局
         dismissLoading()
-        hideErrorLayout()
+        if (isShowNoNetLayout()) {
+            showErrorLayout()
+        } else {
+            hideErrorLayout()
+        }
         if (isErrorToast() && !errorMsg.isNullOrEmpty()) {
             Toast.makeText(context, errorMsg, Toast.LENGTH_SHORT).show()
         }

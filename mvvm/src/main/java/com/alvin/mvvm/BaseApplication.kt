@@ -2,6 +2,7 @@ package com.alvin.mvvm
 
 import android.app.Application
 import com.alvin.mvvm.manager.LifecycleCallback
+import com.alvin.mvvm.utils.LogUtil
 import me.jessyan.autosize.AutoSizeConfig
 
 /**
@@ -23,5 +24,15 @@ abstract class BaseApplication : Application() {
             .setSupportDP(true).isSupportSP = true
         // 注册Activity生命监听
         registerActivityLifecycleCallbacks(LifecycleCallback())
+        if (isLogDebug()) {
+            LogUtil.closeLog()
+        }
     }
+
+    /**
+     * 是否打印Log日志
+     *
+     * @return Boolean
+     */
+    abstract fun isLogDebug(): Boolean
 }

@@ -10,7 +10,7 @@ import com.alvin.mvvm.R
 /**
  * <h3> 作用类描述：显示Dialog的Fragment</h3>
  *
- * @Package :        com.yleanlink.mvp
+ * @Package :        com.alvin.mvp
  * @Date :           2021/9/13-18:10
  * @author Alvin
  */

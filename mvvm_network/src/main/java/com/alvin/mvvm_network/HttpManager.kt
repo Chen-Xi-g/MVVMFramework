@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 /**
  * <h3> 作用类描述：网络请求管理</h3>
  *
- * @Package :        com.yleanlink.network
+ * @Package :        com.alvin.network
  * @Date :           2021/9/8-12:44
  * @author 高国峰
  */

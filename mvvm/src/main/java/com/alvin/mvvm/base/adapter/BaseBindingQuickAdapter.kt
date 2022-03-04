@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 /**
  * <h3> 作用类描述：使用DataBinding初始化Adapter</h3>
  *
- * @Package :        com.yleanlink.mvp.adapter
+ * @Package :        com.alvin.mvp.adapter
  * @Date :           2021/9/14-14:57
  * @author Alvin
  */

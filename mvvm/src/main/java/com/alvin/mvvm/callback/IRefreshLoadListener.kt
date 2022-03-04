@@ -3,7 +3,7 @@ package com.alvin.mvvm.callback
 /**
  * <h3> 作用类描述：刷新和加载更多的监听回调</h3>
  *
- * @Package :        com.yleanlink.mvp.base
+ * @Package :        com.alvin.mvp.base
  * @Date :           2021/12/13-13:40
  * @author Alvin
  */
