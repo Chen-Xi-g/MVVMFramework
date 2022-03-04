@@ -2,7 +2,7 @@
 
 [![MVVM](https://badgen.net/badge/Alvin/mvvm/green?icon=github)](https://github.com/Chen-Xi-g/MVVMFramework)  [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework)
 
-# 基于MVVM进行快速开发， 上手即用。
+# 基于MVVM进行快速开发， 上手即用。（正在重构中，敬请期待）
 
 > 对基础框架进行模块分离, 分为 `MVVM Library`--`MVVM Network Library`
 > 可基于业务需求使用 `MVVM Library` 或 `MVVM Network Library`
