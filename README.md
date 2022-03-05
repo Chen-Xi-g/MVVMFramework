@@ -2,7 +2,7 @@
 
 [![MVVM](https://badgen.net/badge/Alvin/mvvm/green?icon=github)](https://github.com/Chen-Xi-g/MVVMFramework)  [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework)
 
-# 基于MVVM进行快速开发， 上手即用。
+# 基于MVVM进行快速开发， 上手即用。（正在重构中，敬请期待）
 
 > 对基础框架进行模块分离, 分为 `MVVM Library`--`MVVM Network Library`
 > 可基于业务需求使用 `MVVM Library` 或 `MVVM Network Library`
@@ -31,7 +31,8 @@ allprojects {
 
 ```
 dependencies {
-	implementation 'com.github.Chen-Xi-g:MVVMFramework:v1.0.1'
+	// 具体版本号请查看 README顶部徽章
+	implementation 'com.github.Chen-Xi-g:MVVMFramework:v???'
 }
 ```
 
@@ -180,6 +181,7 @@ open class BaseViewModel : ViewModel() {
 * [BRVAH](https://github.com/CymChad/BaseRecyclerViewAdapterHelper) 万能Adapter
 * [DKVideoPlayer](https://github.com/Doikki/DKVideoPlayer) 安卓视频播放器
 * [JetPackMvvm](https://github.com/hegaojian/JetpackMvvm) 基于MVVM模式集成JetPack玩Android项目
+* [SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout) Android智能下拉刷新框架
 * [Square](https://github.com/square) Square公司的 Retrofit  + OkHttp + Moshi
 * [UnPeek-LiveData](https://github.com/KunMinX/UnPeek-LiveData) 解决LiveData数据倒灌
 * [优客API](https://api.iyk0.com/) 免费的API接口服务
