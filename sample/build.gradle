@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId AndroidConfig.applicationId
-        minSdk AndroidConfig.minSdk
+        minSdk 21
         targetSdk AndroidConfig.targetSdk
         versionCode AndroidConfig.versionCode
         versionName AndroidConfig.versionName
@@ -58,6 +58,10 @@ dependencies {
     implementation Dependencies.androidAppcompat
     implementation Dependencies.androidMaterial
     implementation Dependencies.constraintLayout
+    implementation Dependencies.utils
+    implementation Dependencies.materialHeader
+    implementation Dependencies.ballFooter
+    implementation Dependencies.lottie
     implementation project(path: ':mvvm')
     implementation project(path: ':mvvm_network')
     implementation project(path: ':mvvm_navigation')

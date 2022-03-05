@@ -67,6 +67,8 @@ object Dependencies {
 
     private const val utilsVersion = "1.31.0"
 
+    private const val lottieVersion = "5.0.2"
+
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     const val androidCore = "androidx.core:core-ktx:$coreVersion"
     const val androidAppcompat = "androidx.appcompat:appcompat:$appcompatVersion"
@@ -127,4 +129,6 @@ object Dependencies {
 
     /*  工具类  */
     const val utils = "com.blankj:utilcodex:$utilsVersion"
+
+    const val lottie = "com.airbnb.android:lottie:$lottieVersion"
 }

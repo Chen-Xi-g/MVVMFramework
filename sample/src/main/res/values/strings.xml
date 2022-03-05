@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MVVMFramework</string>
+    <string name="re_click">点击重试</string>
+    <string name="empty_more">没有更多了哦~</string>
+    <string name="empty_data">暂无数据</string>
+    <string name="activity_status_layout">Activity多状态布局</string>
+    <string name="activity_recyclerview">Activity Recyclerview</string>
+    <string name="content_layout">内容布局</string>
 </resources>
