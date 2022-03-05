@@ -1,6 +1,6 @@
 package com.alvin.mvvm_framework.base
 
-import me.jessyan.retrofiturlmanager.RetrofitUrlManager
+import com.alvin.mvvm_network.HttpManager.Companion.toDomain
 
 /**
  * <h3> 作用类描述：全局常量</h3>
@@ -15,7 +15,7 @@ object Constant {
      */
     const val ossKey = "oss" // 多域名Key标识
     const val ossValue = "https://oss.xxx.com/" // 多域名具体Value值
-    const val ossHead = RetrofitUrlManager.DOMAIN_NAME_HEADER + ossKey // 使用多域名时，在Headers中添加内容
+    var ossHead = ossKey.toDomain // 使用多域名时，在Headers中添加内容
 
     /**
      * 动态管理域名，在下面添加后自动注册到域名切换框架中

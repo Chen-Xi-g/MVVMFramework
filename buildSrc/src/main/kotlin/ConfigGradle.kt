@@ -63,7 +63,7 @@ object Dependencies {
 
     private const val okHttpVersion = "4.9.1"
 
-    private const val interceptorVersion = "1.6.0"
+    private const val interceptorVersion = "v1.6.12"
 
     private const val utilsVersion = "1.31.0"
 
@@ -125,7 +125,8 @@ object Dependencies {
     const val okHttp = "com.squareup.okhttp3:okhttp:$okHttpVersion"
 
     /*  拦截器  */
-    const val okHttpInterceptor = "com.safframework.log:saf-logginginterceptor:$interceptorVersion"
+    const val okHttpInterceptor =
+        "com.github.fengzhizi715:saf-logginginterceptor:$interceptorVersion"
 
     /*  工具类  */
     const val utils = "com.blankj:utilcodex:$utilsVersion"

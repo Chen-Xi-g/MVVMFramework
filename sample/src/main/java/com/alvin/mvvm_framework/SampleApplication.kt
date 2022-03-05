@@ -9,6 +9,7 @@ import com.alvin.mvvm_framework.base.interceptor.ResponseInterceptor
 import com.alvin.mvvm_framework.base.setting.BaseActivitySetting
 import com.alvin.mvvm_framework.base.setting.BaseFragmentSetting
 import com.alvin.mvvm_network.HttpManager
+import com.blankj.utilcode.util.Utils
 import java.util.concurrent.TimeUnit
 
 /**
@@ -23,6 +24,7 @@ class SampleApplication : BaseApplication() {
     override fun onCreate() {
         super.onCreate()
         GlobalMVVMBuilder.initSetting(BaseActivitySetting(), BaseFragmentSetting())
+        Utils.init(this)
         initHttpManager()
     }
 
@@ -30,11 +32,11 @@ class SampleApplication : BaseApplication() {
         // 参数拦截器
         HttpManager.instance.setting {
             // 设置网络属性
-            setTimeUnit(TimeUnit.SECONDS) // 时间类型 秒
-            setReadTimeout(30) // 读取超时 30s
-            setWriteTimeout(30) // 写入超时 30s
-            setConnectTimeout(30) // 链接超时 30s
-            setRetryOnConnectionFailure(true) // 超时自动重连
+            setTimeUnit(TimeUnit.SECONDS) // 时间类型 秒， 框架默认值 毫秒
+            setReadTimeout(30) // 读取超时 30s， 框架默认值 10000L
+            setWriteTimeout(30) // 写入超时 30s， 框架默认值 10000L
+            setConnectTimeout(30) // 链接超时 30s，框架默认值 10000L
+            setRetryOnConnectionFailure(true) // 超时自动重连， 框架默认值 true
             setBaseUrl("https://www.wanandroid.com") // 默认域名
             // 多域名配置
             setDomain {

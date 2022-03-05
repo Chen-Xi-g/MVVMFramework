@@ -138,31 +138,41 @@ abstract class BaseListFragment<VM : BaseViewModel, DB : ViewDataBinding>(
      * @param list 返回的数据集合
      * @param adapter 适配器
      * @param pageSize 默认每页加载数量
-     * @param footerView
-     * @param emptyView
+     * @param isLoadMore 是否显示加载更多, 设置为true时， list.size < pageSize 会无效
      */
     fun <T> SmartRefreshLayout.finish(
         list: Collection<T>,
         adapter: BaseQuickAdapter<T, *>,
-        pageSize: Int = iSettingBaseFragment.defaultPageSize()
+        pageSize: Int = iSettingBaseFragment.defaultPageSize(),
+        isLoadMore: Boolean = false
     ) {
         if (page > iSettingBaseFragment.defaultPage()) {
             adapter.addData(list)
             finishLoadMore()
         } else {
+            if (page == iSettingBaseFragment.defaultPage() && list.isEmpty()) {
+                adapter.setEmptyView(getEmptyView(context, recyclerView))
+            }
             adapter.setList(list)
             finishRefresh()
         }
-        if (list.size < pageSize) {
-            adapter.removeAllFooterView()
-            adapter.addFooterView(getFooterView(context, recyclerView))
-            setEnableLoadMore(false)
-            if (list.isNullOrEmpty()) {
-                adapter.setEmptyView(getEmptyView(context, recyclerView))
+        if (isLoadMore) {
+            if (adapter.footerLayoutCount > 0) {
+                adapter.removeAllFooterView()
+                setEnableLoadMore(true)
             }
         } else {
-            adapter.removeAllFooterView()
-            setEnableLoadMore(true)
+            if (list.size < pageSize) {
+                // 已经没有分页
+                adapter.removeAllFooterView()
+                adapter.addFooterView(getFooterView(context, recyclerView))
+                setEnableLoadMore(false)
+            } else {
+                if (adapter.footerLayoutCount > 0) {
+                    adapter.removeAllFooterView()
+                    setEnableLoadMore(true)
+                }
+            }
         }
     }
 

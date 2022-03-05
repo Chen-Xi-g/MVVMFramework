@@ -94,30 +94,40 @@ abstract class BaseListActivity<VM : BaseViewModel, DB : ViewDataBinding>(
      * @param list 返回的数据集合
      * @param adapter 适配器
      * @param pageSize 默认每页加载数量
+     * @param isLoadMore 是否显示加载更多, 设置为true时， list.size < pageSize 会无效
      */
     fun <T> SmartRefreshLayout.finish(
         list: Collection<T>,
         adapter: BaseQuickAdapter<T, *>,
-        pageSize: Int? = iSettingActivity.defaultPageSize()
+        pageSize: Int = iSettingActivity.defaultPageSize(),
+        isLoadMore: Boolean = false
     ) {
         if (page > iSettingActivity.defaultPage()) {
             adapter.addData(list)
             finishLoadMore()
-            finishRefresh()
         } else {
+            if (page == iSettingActivity.defaultPage() && list.isEmpty()) {
+                adapter.setEmptyView(getEmptyView(context, recyclerView))
+            }
             adapter.setList(list)
+            finishRefresh()
         }
-        if (pageSize != null) {
+        if (isLoadMore) {
+            if (adapter.footerLayoutCount > 0) {
+                adapter.removeAllFooterView()
+                setEnableLoadMore(true)
+            }
+        } else {
             if (list.size < pageSize) {
+                // 已经没有分页
                 adapter.removeAllFooterView()
                 adapter.addFooterView(getFooterView(context, recyclerView))
                 setEnableLoadMore(false)
-                if (list.isNullOrEmpty()) {
-                    adapter.setEmptyView(getEmptyView(context, recyclerView))
-                }
             } else {
-                adapter.removeAllFooterView()
-                setEnableLoadMore(true)
+                if (adapter.footerLayoutCount > 0) {
+                    adapter.removeAllFooterView()
+                    setEnableLoadMore(true)
+                }
             }
         }
     }
