@@ -1,6 +1,5 @@
 package com.alvin.mvvm_network
 
-import android.app.Application
 import com.safframework.http.interceptor.AndroidLoggingInterceptor
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import okhttp3.Interceptor
@@ -21,8 +20,6 @@ import java.util.concurrent.TimeUnit
  */
 class HttpManager {
     companion object {
-        private lateinit var application: Application
-
         // 多域名快捷字段
         inline val String.toDomain: String get() = "${RetrofitUrlManager.DOMAIN_NAME_HEADER}${this}"
 

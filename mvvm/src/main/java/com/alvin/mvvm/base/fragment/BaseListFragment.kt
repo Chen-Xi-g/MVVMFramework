@@ -11,7 +11,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.alvin.mvvm.R
 import com.alvin.mvvm.base.view_model.BaseViewModel
-import com.alvin.mvvm.callback.IRefreshLoadListener
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.fondesa.recyclerviewdivider.dividerBuilder
 import com.fondesa.recyclerviewdivider.staggeredDividerBuilder
@@ -56,15 +55,9 @@ abstract class BaseListFragment<VM : BaseViewModel, DB : ViewDataBinding>(
      */
     val pageSize: Int = iSettingBaseFragment.defaultPageSize()
 
-    /**
-     * List监听
-     */
-    private var iRefreshLoadListener: IRefreshLoadListener? = null
-
     override fun initView(view: View, savedInstanceState: Bundle?) {
         _rootRefresh = view.findViewById(R.id.rootRefresh)
         _recyclerView = view.findViewById(R.id.rootRecycler)
-        recyclerView.refreshLoadMoreListener()
         // 设置刷新属性
         rootRefresh(rootRefresh)
         // 设置刷新监听
@@ -121,7 +114,7 @@ abstract class BaseListFragment<VM : BaseViewModel, DB : ViewDataBinding>(
      */
     override fun onLoadMore(refreshLayout: RefreshLayout) {
         page++
-        iRefreshLoadListener?.loadMore()
+        loadData()
     }
 
     /**
@@ -129,26 +122,7 @@ abstract class BaseListFragment<VM : BaseViewModel, DB : ViewDataBinding>(
      */
     override fun onRefresh(refreshLayout: RefreshLayout) {
         page = iSettingBaseFragment.defaultPage()
-        iRefreshLoadListener?.refresh()
-    }
-
-    /**
-     * 刷新监听
-     *
-     * @param listener
-     */
-    fun RecyclerView.refreshLoadMoreListener(
-        listener: IRefreshLoadListener = object : IRefreshLoadListener {
-            override fun refresh() {
-                loadData()
-            }
-
-            override fun loadMore() {
-                loadData()
-            }
-        }
-    ) {
-        iRefreshLoadListener = listener
+        loadData()
     }
 
     /**
@@ -170,28 +144,26 @@ abstract class BaseListFragment<VM : BaseViewModel, DB : ViewDataBinding>(
     fun <T> SmartRefreshLayout.finish(
         list: Collection<T>,
         adapter: BaseQuickAdapter<T, *>,
-        pageSize: Int = iSettingBaseFragment.defaultPageSize(),
-        footerView: View = getFooterView(context, recyclerView),
-        emptyView: View = getEmptyView(context, recyclerView)
+        pageSize: Int = iSettingBaseFragment.defaultPageSize()
     ) {
         if (page > iSettingBaseFragment.defaultPage()) {
             adapter.addData(list)
+            finishLoadMore()
         } else {
             adapter.setList(list)
+            finishRefresh()
         }
         if (list.size < pageSize) {
             adapter.removeAllFooterView()
-            adapter.addFooterView(footerView)
+            adapter.addFooterView(getFooterView(context, recyclerView))
             setEnableLoadMore(false)
             if (list.isNullOrEmpty()) {
-                adapter.setEmptyView(emptyView)
+                adapter.setEmptyView(getEmptyView(context, recyclerView))
             }
         } else {
             adapter.removeAllFooterView()
             setEnableLoadMore(true)
         }
-        finishLoadMore()
-        finishRefresh()
     }
 
     /**
@@ -257,15 +229,21 @@ abstract class BaseListFragment<VM : BaseViewModel, DB : ViewDataBinding>(
 
     override fun afterNetwork() {
         super.afterNetwork()
-        rootRefresh.finishRefresh(true)
-        rootRefresh.finishLoadMore(true)
+        if (page == iSettingBaseFragment.defaultPage()) {
+            rootRefresh.finishRefresh(true)
+        } else {
+            rootRefresh.finishLoadMore(true)
+        }
     }
 
     override fun onFailed(errorMsg: String?) {
         super.onFailed(errorMsg)
         // 失败 结束加载和刷新
-        rootRefresh.finishLoadMore(false)
-        rootRefresh.finishRefresh(false)
+        if (page == iSettingBaseFragment.defaultPage()) {
+            rootRefresh.finishRefresh(false)
+        } else {
+            rootRefresh.finishLoadMore(false)
+        }
     }
 
     override fun onResume() {

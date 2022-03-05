@@ -173,7 +173,7 @@ class BaseActivitySetting : ISettingBaseActivity {
      * @return Int List 分页第一页默认值
      */
     override fun defaultPage(): Int {
-        return 1
+        return 0
     }
 
     /**
@@ -194,6 +194,6 @@ class BaseActivitySetting : ISettingBaseActivity {
      * @return Int 分页无数据显示的布局内容
      */
     override fun emptyView(): Int {
-        return R.layout.sample_empty_layout
+        return R.layout.sample_list_empty_layout
     }
 }

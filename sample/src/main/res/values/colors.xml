@@ -12,5 +12,5 @@
     <!-- 文本内容颜色 -->
     <color name="color_content">#FF666666</color>
     <!-- 分割线颜色 -->
-    <color name="color_divider">#F7F7F7</color>
+    <color name="color_divider">#E6E6E6</color>
 </resources>

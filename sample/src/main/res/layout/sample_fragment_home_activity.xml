@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="clickViewModel"
+            type="com.alvin.mvvm_framework.view_model.activity.SampleMainClickViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:divider="@color/color_divider"
+            app:showDividers="middle">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/btnDefaultStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:onClick="@{clickViewModel::clickStartStatusBarActivity}"
+                android:text="@string/activity_status_layout" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/btnDefaultStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:onClick="@{clickViewModel::clickStartRecyclerViewActivity}"
+                android:text="@string/activity_list" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/btnDefaultStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:onClick="@{clickViewModel::clickStartCustomRecyclerViewActivity}"
+                android:text="@string/activity_custom_list" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

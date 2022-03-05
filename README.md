@@ -10,7 +10,7 @@
 
 ## How to
 
-> 具体使用请查看library中的注释,已经非常清楚.
+> 具体使用请查看library中的注释,已经非常清楚. 一定要看 Demo
 
 To get a Git project into your build:
 
@@ -31,10 +31,18 @@ allprojects {
 
 ```
 dependencies {
-	// 具体版本号请查看 README顶部徽章
-	implementation 'com.github.Chen-Xi-g:MVVMFramework:v???'
+	// 具体版本号请查看下面徽章
+	
+	// MVVM 基类
+	implementation 'com.alvin.mvvm:mvvm_framework:Tag'
+	// MVVM Network 只负责网络处理
+	implementation 'com.alvin.mvvm:mvvm_network:Tag'
+	// MVVM Navigation 组件抽离
+	implementation 'com.alvin.mvvm:mvvm_navigation:Tag'
 }
 ```
+
+[![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework)
 
 > 随着`Google`对`Jetpack`的完善，对于开发者来说，`MVVM`显得越来越高效与方便。
 >

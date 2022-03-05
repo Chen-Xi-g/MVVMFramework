@@ -21,7 +21,7 @@ class LaunchActivity : AppCompatActivity() {
     private lateinit var lottieAnimator: LottieAnimationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.sample_launch_activity)
+        setContentView(R.layout.sample_activity_launch)
         immersionBar {
             hideBar(BarHide.FLAG_HIDE_BAR)
         }

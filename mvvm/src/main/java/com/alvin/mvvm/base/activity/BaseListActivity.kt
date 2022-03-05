@@ -11,7 +11,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.alvin.mvvm.R
 import com.alvin.mvvm.base.view_model.BaseViewModel
-import com.alvin.mvvm.callback.IRefreshLoadListener
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.fondesa.recyclerviewdivider.dividerBuilder
 import com.fondesa.recyclerviewdivider.staggeredDividerBuilder
@@ -30,8 +29,9 @@ import me.jessyan.autosize.AutoSize
  * @author Alvin
  */
 abstract class BaseListActivity<VM : BaseViewModel, DB : ViewDataBinding>(
-    @LayoutRes private val layoutRes: Int
-) : BaseMVVMActivity<VM, DB>(layoutRes), OnRefreshLoadMoreListener {
+    @LayoutRes private val layoutRes: Int,
+    private val isGoneContent: Boolean = false
+) : BaseMVVMActivity<VM, DB>(layoutRes, isGoneContent), OnRefreshLoadMoreListener {
 
     /**
      * 获取Refresh控件
@@ -57,37 +57,12 @@ abstract class BaseListActivity<VM : BaseViewModel, DB : ViewDataBinding>(
      */
     val pageSize: Int = iSettingActivity.defaultPageSize()
 
-    /**
-     * List监听
-     */
-    private var iRefreshLoadListener: IRefreshLoadListener? = null
-
     override fun initView(savedInstanceState: Bundle?) {
         _rootRefresh = findViewById(R.id.rootRefresh)
         _recyclerView = findViewById(R.id.rootRecycler)
-        refreshLoadMoreListener()
         rootRefresh(rootRefresh)
         // 设置刷新监听
         rootRefresh.setOnRefreshLoadMoreListener(this)
-    }
-
-    /**
-     * 刷新监听
-     *
-     * @param listener
-     */
-    protected fun refreshLoadMoreListener(
-        listener: IRefreshLoadListener = object : IRefreshLoadListener {
-            override fun refresh() {
-                loadData()
-            }
-
-            override fun loadMore() {
-                loadData()
-            }
-        }
-    ) {
-        iRefreshLoadListener = listener
     }
 
     /**
@@ -101,7 +76,7 @@ abstract class BaseListActivity<VM : BaseViewModel, DB : ViewDataBinding>(
      */
     override fun onLoadMore(refreshLayout: RefreshLayout) {
         page++
-        iRefreshLoadListener?.loadMore()
+        loadData()
     }
 
     /**
@@ -109,7 +84,7 @@ abstract class BaseListActivity<VM : BaseViewModel, DB : ViewDataBinding>(
      */
     override fun onRefresh(refreshLayout: RefreshLayout) {
         page = iSettingActivity.defaultPage()
-        iRefreshLoadListener?.refresh()
+        loadData()
     }
 
     /**
@@ -119,36 +94,32 @@ abstract class BaseListActivity<VM : BaseViewModel, DB : ViewDataBinding>(
      * @param list 返回的数据集合
      * @param adapter 适配器
      * @param pageSize 默认每页加载数量
-     * @param footerView
-     * @param emptyView
      */
     fun <T> SmartRefreshLayout.finish(
         list: Collection<T>,
         adapter: BaseQuickAdapter<T, *>,
-        pageSize: Int? = this@BaseListActivity.pageSize,
-        footerView: View = getFooterView(context, recyclerView),
-        emptyView: View = getEmptyView(context, recyclerView)
+        pageSize: Int? = iSettingActivity.defaultPageSize()
     ) {
         if (page > iSettingActivity.defaultPage()) {
             adapter.addData(list)
+            finishLoadMore()
+            finishRefresh()
         } else {
             adapter.setList(list)
         }
         if (pageSize != null) {
             if (list.size < pageSize) {
                 adapter.removeAllFooterView()
-                adapter.addFooterView(footerView)
+                adapter.addFooterView(getFooterView(context, recyclerView))
                 setEnableLoadMore(false)
                 if (list.isNullOrEmpty()) {
-                    adapter.setEmptyView(emptyView)
+                    adapter.setEmptyView(getEmptyView(context, recyclerView))
                 }
             } else {
                 adapter.removeAllFooterView()
                 setEnableLoadMore(true)
             }
         }
-        finishLoadMore()
-        finishRefresh()
     }
 
     /**
@@ -257,15 +228,21 @@ abstract class BaseListActivity<VM : BaseViewModel, DB : ViewDataBinding>(
 
     override fun afterNetwork() {
         super.afterNetwork()
-        rootRefresh.finishRefresh(true)
-        rootRefresh.finishLoadMore(true)
+        if (page == iSettingActivity.defaultPage()) {
+            rootRefresh.finishRefresh(true)
+        } else {
+            rootRefresh.finishLoadMore(true)
+        }
     }
 
     override fun onFailed(errorMsg: String?) {
         super.onFailed(errorMsg)
         // 失败 结束加载和刷新
-        rootRefresh.finishLoadMore(false)
-        rootRefresh.finishRefresh(false)
+        if (page == iSettingActivity.defaultPage()) {
+            rootRefresh.finishRefresh(false)
+        } else {
+            rootRefresh.finishLoadMore(false)
+        }
     }
 
     override fun onResume() {

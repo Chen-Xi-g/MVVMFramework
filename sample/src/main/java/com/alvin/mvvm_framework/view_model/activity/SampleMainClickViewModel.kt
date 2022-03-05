@@ -3,6 +3,8 @@ package com.alvin.mvvm_framework.view_model.activity
 import android.view.View
 import com.alvin.mvvm.base.view_model.BaseViewModel
 import com.alvin.mvvm_framework.base.intent
+import com.alvin.mvvm_framework.ui.activity.SampleCustomRecyclerActivity
+import com.alvin.mvvm_framework.ui.activity.SampleDefaultRecyclerActivity
 import com.alvin.mvvm_framework.ui.activity.SampleStatusLayoutActivity
 
 /**
@@ -22,6 +24,26 @@ class SampleMainClickViewModel : BaseViewModel() {
     fun clickStartStatusBarActivity(view: View) {
         val content = view.context
         content.startActivity(content.intent(SampleStatusLayoutActivity::class.java))
+    }
+
+    /**
+     * 跳转到列表Activity
+     *
+     * @param view View
+     */
+    fun clickStartRecyclerViewActivity(view: View) {
+        val content = view.context
+        content.startActivity(content.intent(SampleDefaultRecyclerActivity::class.java))
+    }
+
+    /**
+     * 跳转到列表Activity
+     *
+     * @param view View
+     */
+    fun clickStartCustomRecyclerViewActivity(view: View) {
+        val content = view.context
+        content.startActivity(content.intent(SampleCustomRecyclerActivity::class.java))
     }
 
 }

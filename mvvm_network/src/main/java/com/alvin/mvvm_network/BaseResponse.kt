@@ -28,7 +28,7 @@ abstract class BaseResponse<T> {
      *
      * @return Data 数据
      */
-    abstract fun getResponseData(): T
+    abstract fun getResponseData(): T?
 
     /**
      * 服务器返回的Message信息

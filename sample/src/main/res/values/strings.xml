@@ -4,6 +4,11 @@
     <string name="empty_more">没有更多了哦~</string>
     <string name="empty_data">暂无数据</string>
     <string name="activity_status_layout">Activity多状态布局</string>
-    <string name="activity_recyclerview">Activity Recyclerview</string>
+    <string name="activity_list">Activity 列表</string>
+    <string name="activity_custom_list">Activity 自定义列表相关属性</string>
     <string name="content_layout">内容布局</string>
+    <string name="str_activity">Activity</string>
+    <string name="str_fragment">Fragment</string>
+    <string name="list_custom_footer_tips">单独设置暂未更多数据布局</string>
+    <string name="list_custom_empty_tips">单独设置空数据布局</string>
 </resources>

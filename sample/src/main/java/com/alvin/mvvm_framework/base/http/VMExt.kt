@@ -30,7 +30,7 @@ import kotlinx.coroutines.launch
  */
 fun <T> BaseViewModel.request(
     block: suspend () -> BaseResponse<T>,
-    success: (T) -> Unit,
+    success: (T?) -> Unit,
     error: (ResponseThrowable) -> Unit = {},
     isLoading: Boolean = false,
     loadingMessage: String? = null
@@ -130,7 +130,7 @@ fun <T> BaseViewModel.requestNoCheck(
  */
 suspend fun <T> executeResponse(
     response: BaseResponse<T>,
-    success: suspend CoroutineScope.(T) -> Unit
+    success: suspend CoroutineScope.(T?) -> Unit
 ) {
     coroutineScope {
         when {

@@ -1,12 +1,14 @@
 package com.alvin.mvvm_framework.ui.activity
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.alvin.mvvm.base.activity.BaseMVVMActivity
 import com.alvin.mvvm_framework.R
 import com.alvin.mvvm_framework.databinding.SampleActivityMainBinding
-import com.alvin.mvvm_framework.view_model.activity.SampleMainClickViewModel
-
+import com.alvin.mvvm_framework.ui.fragment.SampleHomeActivityFragment
 import com.alvin.mvvm_framework.view_model.activity.SampleMainViewModel
 
 /**
@@ -20,19 +22,30 @@ import com.alvin.mvvm_framework.view_model.activity.SampleMainViewModel
 class SampleMainActivity :
     BaseMVVMActivity<SampleMainViewModel, SampleActivityMainBinding>(R.layout.sample_activity_main) {
 
+    private val fragments by lazy(LazyThreadSafetyMode.NONE) {
+        listOf<Fragment>(SampleHomeActivityFragment(), SampleHomeActivityFragment())
+    }
+
     /**
-     * 处理点击事件的ViewModel
+     * ViewPager2 切换监听
      */
-    private val clickViewModel by lazy(LazyThreadSafetyMode.NONE) {
-        ViewModelProvider(this)[SampleMainClickViewModel::class.java]
+    private val vpListener by lazy(LazyThreadSafetyMode.NONE) {
+        object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                setTitleName(if (position == 0) "Activity样本" else "Fragment样本")
+                dataBinding.bottomNavigation.menu.getItem(position).isChecked = true
+            }
+        }
     }
 
     /**
      * 在initView中执行View初始化的任务，不要做逻辑的处理
      */
     override fun initView(savedInstanceState: Bundle?) {
-        setTitleName("样本清单")
-        dataBinding.clickViewModel = clickViewModel
+        setTitleName("Activity样本")
+        ibBarBack.visibility = View.GONE
+        initVpBottom()
     }
 
     /**
@@ -45,6 +58,36 @@ class SampleMainActivity :
      * 初始化LiveData数据观察者
      */
     override fun registerObserver() {
+    }
+
+    private fun initVpBottom() {
+        dataBinding.vpContent.adapter = object : FragmentStateAdapter(this) {
+
+            override fun getItemCount(): Int {
+                return fragments.size
+            }
+
+            override fun createFragment(position: Int): Fragment {
+                return fragments[position]
+            }
+        }
+        dataBinding.vpContent.registerOnPageChangeCallback(vpListener)
+        dataBinding.bottomNavigation.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.menuActivity -> {
+                    dataBinding.vpContent.currentItem = 0
+                }
+                R.id.menuFragment -> {
+                    dataBinding.vpContent.currentItem = 1
+                }
+            }
+            true
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        dataBinding.vpContent.unregisterOnPageChangeCallback(vpListener)
     }
 
 

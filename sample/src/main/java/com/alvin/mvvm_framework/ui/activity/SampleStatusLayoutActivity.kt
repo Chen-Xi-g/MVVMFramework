@@ -74,14 +74,6 @@ class SampleStatusLayoutActivity :
     }
 
     /**
-     * 失败布局, 点击重新加载
-     */
-    override fun reload() {
-        super.reload()
-        showLoadingLayout()
-    }
-
-    /**
      * 在obtainData中做逻辑处理，不要做View初始化
      */
     override fun obtainData() {
@@ -91,6 +83,14 @@ class SampleStatusLayoutActivity :
      * 初始化LiveData数据观察者
      */
     override fun registerObserver() {
+    }
+
+    /**
+     * 失败布局, 点击重新加载
+     */
+    override fun reload() {
+        super.reload()
+        showLoadingLayout()
     }
 
 }
