@@ -63,7 +63,11 @@ dependencies {
     implementation Dependencies.materialHeader
     implementation Dependencies.ballFooter
     implementation Dependencies.lottie
+    def alvinMVVMVersion = "v1.0.5"
     implementation project(path: ':mvvm')
+//    implementation "com.github.Chen-Xi-g.MVVMFramework:mvvm_framework:${alvinMVVMVersion}"
     implementation project(path: ':mvvm_network')
+//    implementation "com.github.Chen-Xi-g.MVVMFramework:mvvm_network:${alvinMVVMVersion}"
     implementation project(path: ':mvvm_navigation')
+//    implementation "com.github.Chen-Xi-g.MVVMFramework:mvvm_navigation:${alvinMVVMVersion}"
 }
