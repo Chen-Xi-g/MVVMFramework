@@ -7,6 +7,9 @@
 > 对基础框架进行模块分离, 分为 `MVVM Library`--`MVVM Navigation Library`--`MVVM Network Library`
 > 可基于业务需求使用 `MVVM Library` 、`MVVM Navigation Library`、`MVVM Network Library`
 
+已开发一键生成代码模板, 创建适用于本框架的Activity和Fragment. 
+具体查看[AlvinMVVMPlugin_4_3](https://github.com/Chen-Xi-g/AlvinMVVMPlugin_4_3)
+
 ## How to
 
 > 具体使用请查看library中的注释,已经非常清楚. 一定要看 Demo
