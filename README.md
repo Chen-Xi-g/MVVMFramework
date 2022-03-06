@@ -67,7 +67,6 @@ dependencies {
   * `livedata`实现`LiveData`的基础功能封装，如非空返回值
   * `navigation`实现导航的统一处理
   * `view_model`实现`BaseViewModel`的处理
-* `callback`包下封装了组件的回调接口
 * `help`包下封装了组件的辅助类
 * `manager`包下封装了对于组件的管理
 
@@ -163,10 +162,6 @@ open class BaseViewModel : ViewModel() {
     }
 }
 ```
-
-### Callback 回调
-
-在封装以上基础组件时，需要自定义回调的接口统一存放到`callback`目录下
 
 ### 辅助类封装
 
