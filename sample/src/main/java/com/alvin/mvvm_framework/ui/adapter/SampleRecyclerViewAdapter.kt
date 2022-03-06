@@ -21,5 +21,6 @@ class SampleRecyclerViewAdapter :
         dataBinding: SampleItemArticleBinding?
     ) {
         dataBinding?.item = item
+        dataBinding?.executePendingBindings()
     }
 }

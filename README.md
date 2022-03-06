@@ -4,9 +4,8 @@
 
 # 基于MVVM进行快速开发， 上手即用。（正在重构中，敬请期待）
 
-> 对基础框架进行模块分离, 分为 `MVVM Library`--`MVVM Network Library`
-> 可基于业务需求使用 `MVVM Library` 或 `MVVM Network Library`
-> 该项目仅限于学习交流.
+> 对基础框架进行模块分离, 分为 `MVVM Library`--`MVVM Navigation Library`--`MVVM Network Library`
+> 可基于业务需求使用 `MVVM Library` 、`MVVM Navigation Library`、`MVVM Network Library`
 
 ## How to
 
@@ -218,26 +217,3 @@ open class BaseViewModel : ViewModel() {
 **邮箱(Email):** a912816369@gmail.com
 
 **小站:** https://me.minlukj.com
-
-MIT License
-=====
-
-    Copyright (c) 2022 忞鹿
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
