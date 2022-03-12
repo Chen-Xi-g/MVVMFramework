@@ -18,30 +18,43 @@ import javax.net.ssl.SSLException
  * @author 高国峰
  */
 object ExceptionHandle {
-    fun handleException(throwable: Throwable?): ResponseThrowable {
+    fun handleException(
+        throwable: Throwable?,
+        unknownMsg: String = "请求失败，请稍后再试。",
+        parseMsg: String = "解析错误，请稍后再试。",
+        networkMsg: String = "网络连接错误，请稍后重试。",
+        sslMsg: String = "证书出错，请稍后再试。",
+        timeoutMsg: String = "网络连接超时，请稍后重试。"
+    ): ResponseThrowable {
         return when (throwable) {
             is ResponseThrowable -> throwable
-            is HttpException -> ResponseThrowable(EnumError.NETWORK_ERROR, throwable.message())
+            is HttpException -> ResponseThrowable(
+                SealedError.NetworkError(networkMsg),
+                throwable.message()
+            )
             is JsonDataException, is JsonEncodingException, is ParseException -> ResponseThrowable(
-                EnumError.PARSE_ERROR,
+                SealedError.ParseError(parseMsg),
                 throwable.message
             )
-            is ConnectException -> ResponseThrowable(EnumError.NETWORK_ERROR, throwable.message)
-            is SSLException -> ResponseThrowable(EnumError.SSL_ERROR, throwable.message)
+            is ConnectException -> ResponseThrowable(
+                SealedError.NetworkError(networkMsg),
+                throwable.message
+            )
+            is SSLException -> ResponseThrowable(SealedError.SslError(sslMsg), throwable.message)
             is ConnectTimeoutException -> ResponseThrowable(
-                EnumError.TIMEOUT_ERROR,
+                SealedError.TimeoutError(timeoutMsg),
                 throwable.message
             )
             is SocketTimeoutException -> ResponseThrowable(
-                EnumError.TIMEOUT_ERROR,
+                SealedError.TimeoutError(timeoutMsg),
                 throwable.message
             )
             is UnknownHostException -> ResponseThrowable(
-                EnumError.TIMEOUT_ERROR,
+                SealedError.Unknown(unknownMsg),
                 throwable.message
             )
             else -> ResponseThrowable(
-                EnumError.UNKNOWN,
+                SealedError.Unknown(unknownMsg),
                 throwable?.message
             )
         }

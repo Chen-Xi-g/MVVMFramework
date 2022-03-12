@@ -29,9 +29,9 @@ class ResponseThrowable : Exception {
         this.errorLog = errorLog
     }
 
-    constructor(enumError: EnumError, errorLog: String? = "") {
+    constructor(sealedError: SealedError, errorLog: String? = "") {
         this.errorLog = errorLog
-        this.errorCode = enumError.getKey()
-        this.errorMsg = enumError.getValue()
+        this.errorCode = sealedError.code
+        this.errorMsg = sealedError.error
     }
 }
