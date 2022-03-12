@@ -10,13 +10,17 @@ dependencies {
     api Dependencies.okHttpInterceptor
 
 }
-
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.srcDirs
+}
 afterEvaluate {
     publishing {
         publications {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
                 from components.release
+                artifact androidSourcesJar
                 groupId = JetpackMaven.mavenGroup
                 artifactId = JetpackMaven.mvvmNetworkArtifactId
                 version = JetpackMaven.mavenVersion
