@@ -1,5 +1,3 @@
-
-
 [![MVVM](https://badgen.net/badge/Alvin/mvvm/green?icon=github)](https://github.com/Chen-Xi-g/MVVMFramework)  [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework)
 
 # 基于MVVM进行快速开发， 上手即用。（重构已完成，正在编写SampleApp）
@@ -7,7 +5,7 @@
 > 对基础框架进行模块分离, 分为 `MVVM Library`--`MVVM Navigation Library`--`MVVM Network Library`
 > 可基于业务需求使用 `MVVM Library` 、`MVVM Navigation Library`、`MVVM Network Library`
 
-已开发一键生成代码模板, 创建适用于本框架的Activity和Fragment. 
+已开发一键生成代码模板, 创建适用于本框架的Activity和Fragment.
 具体查看[AlvinMVVMPlugin_4_3](https://github.com/Chen-Xi-g/AlvinMVVMPlugin_4_3)
 
 ## How to
@@ -42,11 +40,221 @@ dependencies {
 }
 ```
 
-| 说明            | 依赖地址                                            | 版本号                                                       |
-| --------------- | --------------------------------------------------- | ------------------------------------------------------------ |
-| MVVM 基类        | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_framework:Tag'  | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
-| MVVM Network    | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_network:Tag'    | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
+| 说明            | 依赖地址                                                     | 版本号                                                       |
+| --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| MVVM 基类       | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_framework:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
+| MVVM Network    | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_network:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
 | MVVM Navigation | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_navigation:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
+
+依赖引入后，需要初始化依赖，下面是模块化初始化流程。
+
+### 1.继承BaseApplication
+
+创建你的[Application](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/SampleApplication.kt)类，继承`BaseApplication`，并且需要在`onCreate`函数中进行配置和初始化相关参数，可以在这里配置网络请求框架的参数和UI全局参数。比如[拦截器](https://github.com/Chen-Xi-g/MVVMFramework/tree/main/sample/src/main/java/com/alvin/mvvm_framework/base/interceptor)和[多域名](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/base/Constant.kt)，全局[Activity](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/base/setting/BaseActivitySetting.kt)和[Fragment](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/base/setting/BaseFragmentSetting.kt)属性。
+
+```kotlin
+// 全局Activity设置
+GlobalMVVMBuilder.initSetting(BaseActivitySetting(), BaseFragmentSetting())
+
+private fun initHttpManager() {
+    // 参数拦截器
+    HttpManager.instance.setting {
+        // 设置网络属性
+        setTimeUnit(TimeUnit.SECONDS) // 时间类型 秒， 框架默认值 毫秒
+        setReadTimeout(30) // 读取超时 30s， 框架默认值 10000L
+        setWriteTimeout(30) // 写入超时 30s， 框架默认值 10000L
+        setConnectTimeout(30) // 链接超时 30s，框架默认值 10000L
+        setRetryOnConnectionFailure(true) // 超时自动重连， 框架默认值 true
+        setBaseUrl("https://www.wanandroid.com") // 默认域名
+        // 多域名配置
+        setDomain {
+            Constant.domainList.forEach { map ->
+                map.forEach {
+                    if (it.key.isNotEmpty() && it.value.isNotEmpty()) {
+                        put(it.key, it.value)
+                    }
+                }
+            }
+        }
+        setLoggingInterceptor(
+            isDebug = BuildConfig.DEBUG,
+            hideVerticalLine = true,
+            requestTag = "HTTP Request 请求参数",
+            responseTag = "HTTP Response 返回参数"
+        )
+        // 添加拦截器
+        setInterceptorList(hashSetOf(ResponseInterceptor(), ParameterInterceptor()))
+    }
+}
+
+// 需要重写，传入当前是否初始Debug模式。
+override fun isLogDebug(): Boolean {
+    // 是否显示日志
+    return BuildConfig.DEBUG
+}
+```
+
+### 2.创建ViewModel扩展函数
+
+所有模块需要依赖的base模块创建ViewModel相关的扩展函数[VMKxt](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/base/http/VMExt.kt)和Json实体类壳[BaseEntity](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/model/BaseEntity.kt)。
+
+```kotlin
+/**
+ * 过滤服务器结果，失败抛异常
+ * @param block 请求体方法，必须要用suspend关键字修饰
+ * @param success 成功回调
+ * @param error 失败回调 可不传
+ * @param isLoading 是否显示 Loading 布局
+ * @param loadingMessage 加载框提示内容
+ */
+fun <T> BaseViewModel.request(
+    block: suspend () -> BaseResponse<T>,
+    success: (T?) -> Unit,
+    error: (ResponseThrowable) -> Unit = {},
+    isLoading: Boolean = false,
+    loadingMessage: String? = null
+): Job {
+    // 开始执行请求
+    httpCallback.beforeNetwork.postValue(
+        // 执行Loading逻辑
+        LoadingEntity(
+            isLoading,
+            loadingMessage?.isNotEmpty() == true,
+            loadingMessage ?: ""
+        )
+    )
+    return viewModelScope.launch {
+        kotlin.runCatching {
+            //请求体
+            block()
+        }.onSuccess {
+            // 网络请求成功， 结束请求
+            httpCallback.afterNetwork.postValue(false)
+            //校验请求结果码是否正确，不正确会抛出异常走下面的onFailure
+            kotlin.runCatching {
+                executeResponse(it) { coroutine ->
+                    success(coroutine)
+                }
+            }.onFailure { error ->
+                // 请求时发生异常， 执行失败回调
+                val responseThrowable = ExceptionHandle.handleException(error)
+                httpCallback.onFailed.value = responseThrowable.errorMsg ?: ""
+                responseThrowable.errorLog?.let { errorLog ->
+                    LogUtil.e(errorLog)
+                }
+                // 执行失败的回调方法
+                error(responseThrowable)
+            }
+        }.onFailure { error ->
+            // 请求时发生异常， 执行失败回调
+            val responseThrowable = ExceptionHandle.handleException(error)
+            httpCallback.onFailed.value = responseThrowable.errorMsg ?: ""
+            responseThrowable.errorLog?.let { errorLog ->
+                LogUtil.e(errorLog)
+            }
+            // 执行失败的回调方法
+            error(responseThrowable)
+        }
+    }
+}
+
+/**
+ * 不过滤服务器结果
+ * @param block 请求体方法，必须要用suspend关键字修饰
+ * @param success 成功回调
+ * @param error 失败回调 可不传
+ * @param isLoading 是否显示 Loading 布局
+ * @param loadingMessage 加载框提示内容
+ */
+fun <T> BaseViewModel.requestNoCheck(
+    block: suspend () -> T,
+    success: (T) -> Unit,
+    error: (ResponseThrowable) -> Unit = {},
+    isLoading: Boolean = false,
+    loadingMessage: String? = null
+): Job {
+    // 开始执行请求
+    httpCallback.beforeNetwork.postValue(
+        // 执行Loading逻辑
+        LoadingEntity(
+            isLoading,
+            loadingMessage?.isNotEmpty() == true,
+            loadingMessage ?: ""
+        )
+    )
+    return viewModelScope.launch {
+        runCatching {
+            //请求体
+            block()
+        }.onSuccess {
+            // 网络请求成功， 结束请求
+            httpCallback.afterNetwork.postValue(false)
+            //成功回调
+            success(it)
+        }.onFailure { error ->
+            // 请求时发生异常， 执行失败回调
+            val responseThrowable = ExceptionHandle.handleException(error)
+            httpCallback.onFailed.value = responseThrowable.errorMsg ?: ""
+            responseThrowable.errorLog?.let { errorLog ->
+                LogUtil.e(errorLog)
+            }
+            // 执行失败的回调方法
+            error(responseThrowable)
+        }
+    }
+}
+
+/**
+ * 请求结果过滤，判断请求服务器请求结果是否成功，不成功则会抛出异常
+ */
+suspend fun <T> executeResponse(
+    response: BaseResponse<T>,
+    success: suspend CoroutineScope.(T?) -> Unit
+) {
+    coroutineScope {
+        when {
+            response.isSuccess() -> {
+                success(response.getResponseData())
+            }
+            else -> {
+                throw ResponseThrowable(
+                    response.getResponseCode(),
+                    response.getResponseMessage(),
+                    response.getResponseMessage()
+                )
+            }
+        }
+    }
+}
+```
+
+以上代码封装了快速的网络请求扩展函数，并且可以根据自己的情况，选择脱壳或者不脱壳的回调处理。 调用示例：
+
+```kotlin
+/**
+ * 加载列表数据
+ */
+fun getArticleListData(page: Int, pageSize: Int) {
+    request(
+        {
+            filterArticleList(page, pageSize)
+        }, {
+            // 成功操作
+            it?.let {
+                _articleListData.postValue(it.datas)
+            }
+        }
+    )
+}
+```
+
+完成上面的操作，你就可以进入愉快的开发工作了。
+
+### 3.引入一键生成代码插件(可选)
+
+每次创建Activity、Fragment、ListActivity、ListFragment都是重复的工作，为了可以更高效的开发，减少这些枯燥的操作，特地编写的快速生成MVVM代码的插件，该插件只适用于当前MVVM框架，具体使用请前往[AlvinMVVMPlugin](https://github.com/Chen-Xi-g/AlvinMVVMPlugin_4_3)。集成后你就可以开始像创建`EmptyActivity`这样创建`MVVMActivity`。
+
+## 前言
 
 > 随着`Google`对`Jetpack`的完善，对于开发者来说，`MVVM`显得越来越高效与方便。
 >
@@ -57,19 +265,19 @@ dependencies {
 ## 框架结构
 
 在封装之前，要确定自己需要封装的功能，列如常用的`Activity`、`Fragment`、`LiveData`、`ViewModel`、`Navigation`、以及其他的`Widget`。
-所以你要在开始开发之前确定好包的分包结构。下面是我对`MVVM`框架的分包结构。
+所以你要在开始开发之前确定好包的分包结构。下面是我对`MVVM`框架的分包结构。！！！重构之后**callback**已移除。
 
 ![MVVM Library](https://blog.minlukj.com/wp-content/uploads/2022/01/16415230451.png)
 
 从上图可以看到每次包都是非常明确
 
 * `base`包下封装了`MVVM`的基础组件
-  * `activity`实现`DataBinding + ViewModel`的封装，以及一些其他功能
-  * `adapter`实现`DataBinding + Adapter`的封装
-  * `fragment`实现`DataBinding + ViewModel`的封装，以及一些其他功能
-  * `livedata`实现`LiveData`的基础功能封装，如非空返回值
-  * `navigation`实现导航的统一处理
-  * `view_model`实现`BaseViewModel`的处理
+    * `activity`实现`DataBinding + ViewModel`的封装，以及一些其他功能
+    * `adapter`实现`DataBinding + Adapter`的封装
+    * `fragment`实现`DataBinding + ViewModel`的封装，以及一些其他功能
+    * `livedata`实现`LiveData`的基础功能封装，如非空返回值
+    * `navigation`实现导航的统一处理
+    * `view_model`实现`BaseViewModel`的处理
 * `help`包下封装了组件的辅助类
 * `manager`包下封装了对于组件的管理
 
@@ -92,10 +300,10 @@ dependencies {
 2. `BaseActivity`封装了基础的`Activity`功能，主要用来初始化`Activity`公共功能：`DataBinding`的初始化、沉浸式状态栏、`AbstractActivity`抽象方法的调用、屏幕适配、空白区域隐藏软键盘。具体功能可以自行新增。
 3. `BaseDialogActivity`只负责显示`Dialog Loading`弹窗，一般在提交请求或本地流处理时使用。也可以扩展其他的`Dialog`，比如时间选择器之类。
 4. `BaseContentViewActivity`是对布局进行初始化操作的`Activity`，他是我们的核心。这里处理了每个`Activity`的每个状态的布局，一般情况下有：
-   * `TitleLayout` 公共标题
-   * `ContentLayout` 主要的内容布局，使我们需要程序内容的主要容器。
-   * `ErrorLayout` 当网络请求发生错误，需要对用户进行友好的提示。
-   * `LoadingLayout` 正在加载数据的布局，给用户一个良好的体验，避免首次进入页面显示的布局没有数据。
+    * `TitleLayout` 公共标题
+    * `ContentLayout` 主要的内容布局，使我们需要程序内容的主要容器。
+    * `ErrorLayout` 当网络请求发生错误，需要对用户进行友好的提示。
+    * `LoadingLayout` 正在加载数据的布局，给用户一个良好的体验，避免首次进入页面显示的布局没有数据。
 5. `BaseVMActivity`实现`ViewMode`的`Activity`基类，通过泛型对`ViewModel`进行实例化。并且通过`BaseViewModel`进行公共操作。
 6. `BaseMVVMActivity` 所有`Activity`最终需要继承的`MVVM`类，通过传入`DataBinding`和`ViewModel`的泛型进行初始化操作，在构造参数中还需要获取`Layout`布局
 7. `BaseListActivity`适用于列表的`Activity`，分页操作、上拉加载、下拉刷新、空布局、头布局、底布局封装。
@@ -210,13 +418,13 @@ open class BaseViewModel : ViewModel() {
 
  <img src="http://r.photo.store.qq.com/psb?/V12LSg7n0Vj1Fg/JIE.r7vzYd0JdQV4.U8AFDF2wy5d*DXixdQZ2ZFiV6I!/r/dEYBAAAAAAAA" height = "400" width = "300">      <img src="http://r.photo.store.qq.com/psb?/V12LSg7n0Vj1Fg/64q8qbMEanfoAXbFWxrESl6QXS7ITX63kCabiSRL440!/r/dLYAAAAAAAAA" height = "400" width = "300">
 
- ### 如何联系我(How to contact me)
+### 如何联系我(How to contact me)
 
- **QQ:** 1217056667
+**QQ:** 1217056667
 
- **邮箱(Email):** a912816369@gmail.com
+**邮箱(Email):** a912816369@gmail.com
 
- **小站:** https://me.minlukj.com
+**小站:** https://me.minlukj.com
 
 MIT License
 =====
