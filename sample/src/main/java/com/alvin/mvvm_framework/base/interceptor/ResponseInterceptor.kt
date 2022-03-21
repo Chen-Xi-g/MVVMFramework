@@ -4,6 +4,7 @@ import com.alvin.mvvm.utils.LogUtil
 import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
+import java.io.IOException
 
 /**
  * <h3> 作用类描述：返回体拦截器</h3>
@@ -13,6 +14,8 @@ import okhttp3.ResponseBody.Companion.toResponseBody
  * @author 高国峰
  */
 class ResponseInterceptor : Interceptor {
+
+    @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         // 获取返回体，从中获取Cookie持久化登录。
         var proceed = chain.proceed(chain.request())
