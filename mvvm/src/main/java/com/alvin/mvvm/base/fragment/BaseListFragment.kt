@@ -44,8 +44,9 @@ import me.jessyan.autosize.AutoSize
  * @author Alvin
  */
 abstract class BaseListFragment<VM : BaseViewModel, DB : ViewDataBinding>(
-    @LayoutRes private val layoutRes: Int
-) : BaseMVVMFragment<VM, DB>(layoutRes), OnRefreshLoadMoreListener {
+    @LayoutRes private val layoutRes: Int,
+    private val isGoneContent: Boolean = false
+) : BaseMVVMFragment<VM, DB>(layoutRes, isGoneContent), OnRefreshLoadMoreListener {
     /**
      * 获取Refresh控件
      *
