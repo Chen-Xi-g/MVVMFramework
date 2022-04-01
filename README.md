@@ -394,7 +394,7 @@ open class BaseViewModel : ViewModel() {
 
 ## 鸣谢
 
-> 该框架参考以下优秀开源项目,特此鸣谢. 不分先后按首字母排序.
+> 该框架已集成以下优秀开源项目,特此鸣谢. 不分先后按首字母排序.
 
 * [AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode) 安卓工具类库
 * [AVLoadingIndicatorView](https://github.com/HarlonWang/AVLoadingIndicatorView) 加载Loading动画
