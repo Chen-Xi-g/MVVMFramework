@@ -1,6 +1,6 @@
 [![MVVM](https://badgen.net/badge/Alvin/mvvm/green?icon=github)](https://github.com/Chen-Xi-g/MVVMFramework)  [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework)
 
-# AlvinMVVM（重构已完成，正在编写SampleApp，敬请期待。）
+# AlvinMVVM
 
 结合Jetpack，构建快速开发的MVVM框架。
 
@@ -20,7 +20,7 @@
 >
 > 这篇文章主要就是分享如何从0搭建一个高效的`MVVM`框架。
 
-## 基于MVVM进行快速开发， 上手即用。
+## 基于MVVM进行快速开发， 上手即用。（重构已完成，正在编写SampleApp）
 
 > 对基础框架进行模块分离, 分为 `MVVM Library`--`MVVM Navigation Library`--`MVVM Network Library`
 > 可基于业务需求使用 `MVVM Library` 、`MVVM Navigation Library`、`MVVM Network Library`
@@ -36,7 +36,7 @@ To get a Git project into your build:
 
 Add it in your root build.gradle at the end of repositories:
 
-```
+```groovy
 allprojects {
 	repositories {
 		...
@@ -47,8 +47,10 @@ allprojects {
 
 **Step 2**. Add the dependency
 
-```
+```groovy
 dependencies {
+	// BaseMVVM 同时集成了 MVVM、MVVM Network、MVVM Navigation
+	implementation 'com.github.Chen-Xi-g.MVVMFramework:base_mvvm:Tag'
 	// MVVM 基类
 	implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_framework:Tag'
 	// MVVM Network 只负责网络处理
@@ -60,61 +62,120 @@ dependencies {
 
 | 说明            | 依赖地址                                                     | 版本号                                                       |
 | --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| BaseMVVM        | implementation 'com.github.Chen-Xi-g.MVVMFramework:base_mvvm:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
 | MVVM 基类       | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_framework:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
 | MVVM Network    | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_network:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
 | MVVM Navigation | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_navigation:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
 
 依赖引入后，需要初始化依赖，下面是模块化初始化流程。
 
-### 1.继承BaseApplication
+### 合并集成
 
-创建你的[Application](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/SampleApplication.kt)类，继承`BaseApplication`，并且需要在`onCreate`函数中进行配置和初始化相关参数，可以在这里配置网络请求框架的参数和UI全局参数。比如[拦截器](https://github.com/Chen-Xi-g/MVVMFramework/tree/main/sample/src/main/java/com/alvin/mvvm_framework/base/interceptor)和[多域名](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/base/Constant.kt)，全局[Activity](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/base/setting/BaseActivitySetting.kt)和[Fragment](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/base/setting/BaseFragmentSetting.kt)属性。
+合并集成只需要引入`BaseMVVM`即可，内部 默认集成了`MVVM`、`MVVMNetwork`、`MVVMNavigation`
+，只需要实现`com.alvin.base_mvvm.base.IBaseMVVM`接口就可以直接使用。
+
+#### 1.实现IBaseMVVM接口
+
+建议在你的[Application](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/SampleApplication.kt)类，实现`IBaseMVVM`，并且需要在合适的位置进行配置和初始化相关参数，可以在这里配置网络请求框架的参数和UI全局参数。比如[拦截器](https://github.com/Chen-Xi-g/MVVMFramework/tree/main/sample/src/main/java/com/alvin/mvvm_framework/base/interceptor)和[多域名](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/base/Constant.kt)，全局[Activity](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/base/setting/BaseActivitySetting.kt)和[Fragment](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/base/setting/BaseFragmentSetting.kt)属性。
+
+完整代码：
 
 ```kotlin
-// 全局Activity设置
-GlobalMVVMBuilder.initSetting(BaseActivitySetting(), BaseFragmentSetting())
-
-private fun initHttpManager() {
-    // 参数拦截器
-    HttpManager.instance.setting {
-        // 设置网络属性
-        setTimeUnit(TimeUnit.SECONDS) // 时间类型 秒， 框架默认值 毫秒
-        setReadTimeout(30) // 读取超时 30s， 框架默认值 10000L
-        setWriteTimeout(30) // 写入超时 30s， 框架默认值 10000L
-        setConnectTimeout(30) // 链接超时 30s，框架默认值 10000L
-        setRetryOnConnectionFailure(true) // 超时自动重连， 框架默认值 true
-        setBaseUrl("https://www.wanandroid.com") // 默认域名
-        // 多域名配置
-        setDomain {
-            Constant.domainList.forEach { map ->
-                map.forEach {
-                    if (it.key.isNotEmpty() && it.value.isNotEmpty()) {
-                        put(it.key, it.value)
+class SampleApplication2 : Application(), IBaseMVVM {
+    override fun onCreate() {
+        super.onCreate()
+        // 使用默认配置
+        initBaseMVVM(this, "https://www.wanandroid.com/")
+        // 自定义配置
+        initBaseMVVM(
+            this,
+            "https://www.wanandroid.com/",
+            BaseActivitySetting(),
+            BaseFragmentSetting(),
+            isDebug = BuildConfig.DEBUG,
+            timeUnit = TimeUnit.SECONDS,
+            timeout = 30,
+            retryOnConnection = true,
+            domain = {
+                Constant.domainList.forEach { map ->
+                    map.forEach {
+                        if (it.key.isNotEmpty() && it.value.isNotEmpty()) {
+                            put(it.key, it.value)
+                        }
                     }
                 }
-            }
-        }
-        setLoggingInterceptor(
-            isDebug = BuildConfig.DEBUG,
+            },
+            // 是否打印
             hideVerticalLine = true,
-            requestTag = "HTTP Request 请求参数",
-            responseTag = "HTTP Response 返回参数"
+            // 请求标识
+            requestTag = "Request 请求参数",
+            // 响应标识
+            responseTag = "Response 响应结果",
+            // 拦截器
+            ResponseInterceptor(),
+            ParameterInterceptor()
         )
-        // 添加拦截器
-        setInterceptorList(hashSetOf(ResponseInterceptor(), ParameterInterceptor()))
     }
-}
-
-// 需要重写，传入当前是否初始Debug模式。
-override fun isLogDebug(): Boolean {
-    // 是否显示日志
-    return BuildConfig.DEBUG
 }
 ```
 
+对于ViewModel的网络请求已实现响应的扩展函数，参考单独集成`2`的使用。
 
+### 单独集成
 
-### 2.创建ViewModel扩展函数
+#### 1.实现IMVVM、INetWork接口
+
+建议在你的[Application](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/SampleApplication.kt)类，实现`IMVVM、INetWork`，并且需要在合适的位置进行配置和初始化相关参数，可以在这里配置网络请求框架的参数和UI全局参数。比如[拦截器](https://github.com/Chen-Xi-g/MVVMFramework/tree/main/sample/src/main/java/com/alvin/mvvm_framework/base/interceptor)和[多域名](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/base/Constant.kt)，全局[Activity](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/base/setting/BaseActivitySetting.kt)和[Fragment](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/base/setting/BaseFragmentSetting.kt)属性。
+
+完整代码：
+
+```kotlin
+class SampleApplication : Application(), IMVVMApplication, INetWorkApplication {
+
+    override fun onCreate() {
+        super.onCreate()
+        // 初始化MVVM框架
+        initMVVM(this, BaseActivitySetting(), BaseFragmentSetting(), BuildConfig.DEBUG)
+        /* 两种配置网络请求，选择其一即可 */
+        // 初始化网络请求，默认配置
+        initNetwork(baseUrl = "https://www.wanandroid.com")
+        // 初始化网络请求, 自定义配置
+        initNetwork(
+            // 基础url
+            "https://www.wanandroid.com",
+            // 时间单位
+            TimeUnit.SECONDS,
+            // 时间
+            30,
+            // 是否重试
+            true,
+            // 多域名配置
+            domain = {
+                Constant.domainList.forEach { map ->
+                    map.forEach {
+                        if (it.key.isNotEmpty() && it.value.isNotEmpty()) {
+                            put(it.key, it.value)
+                        }
+                    }
+                }
+            },
+            // 是否隐藏网络请求中的竖线
+            true,
+            // 请求标识
+            "Request 请求参数",
+            // 响应表示
+            "Response 响应结果",
+            // 是否Debug
+            BuildConfig.DEBUG,
+            // 拦截器
+            ResponseInterceptor(),
+            ParameterInterceptor()
+        )
+    }
+}
+```
+
+#### 2.创建ViewModel扩展函数
 
 所有模块需要依赖的base模块创建ViewModel相关的扩展函数[VMKxt](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/base/http/VMExt.kt)和Json实体类壳[BaseEntity](https://github.com/Chen-Xi-g/MVVMFramework/blob/main/sample/src/main/java/com/alvin/mvvm_framework/model/BaseEntity.kt)。
 
@@ -270,7 +331,7 @@ fun getArticleListData(page: Int, pageSize: Int) {
 
 完成上面的操作，你就可以进入愉快的开发工作了。
 
-### 3.引入一键生成代码插件(可选)
+### 引入一键生成代码插件(可选)
 
 每次创建Activity、Fragment、ListActivity、ListFragment都是重复的工作，为了可以更高效的开发，减少这些枯燥的操作，特地编写的快速生成MVVM代码的插件，该插件只适用于当前MVVM框架，具体使用请前往[AlvinMVVMPlugin](https://github.com/Chen-Xi-g/AlvinMVVMPlugin_4_3)。集成后你就可以开始像创建`EmptyActivity`这样创建`MVVMActivity`。
 
@@ -394,7 +455,7 @@ open class BaseViewModel : ViewModel() {
 
 ## 鸣谢
 
-> 该框架已集成以下优秀开源项目,特此鸣谢. 不分先后按首字母排序.
+> 该框架参考以下优秀开源项目,特此鸣谢. 不分先后按首字母排序.
 
 * [AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode) 安卓工具类库
 * [AVLoadingIndicatorView](https://github.com/HarlonWang/AVLoadingIndicatorView) 加载Loading动画
@@ -427,13 +488,13 @@ open class BaseViewModel : ViewModel() {
 # License
 
 	   Copyright 2022 高国峰
-
+	
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
 	   You may obtain a copy of the License at
-
+	
 	       http://www.apache.org/licenses/LICENSE-2.0
-
+	
 	   Unless required by applicable law or agreed to in writing, software
 	   distributed under the License is distributed on an "AS IS" BASIS,
 	   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
