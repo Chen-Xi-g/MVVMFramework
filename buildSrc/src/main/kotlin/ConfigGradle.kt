@@ -14,7 +14,7 @@ object JetpackMaven {
     /*   发布插件的相关属性     */
 
     const val mavenGroup = "com.alvin.mvvm"
-    const val mavenVersion = "1.1.0"
+    const val mavenVersion = "1.1.1"
 
     const val baseMVVMArtifactId = "base_mvvm"
     const val mvvmArtifactId = "mvvm_framework"
