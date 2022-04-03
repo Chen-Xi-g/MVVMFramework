@@ -16,6 +16,7 @@ object JetpackMaven {
     const val mavenGroup = "com.alvin.mvvm"
     const val mavenVersion = "1.1.0"
 
+    const val baseMVVMArtifactId = "base_mvvm"
     const val mvvmArtifactId = "mvvm_framework"
     const val mvvmNetworkArtifactId = "mvvm_network"
     const val mvvmNavigationArtifactId = "mvvm_navigation"
