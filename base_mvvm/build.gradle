@@ -1,0 +1,7 @@
+apply from:("../gradle/build_library.gradle")
+dependencies {
+    // base_mvvm 集成三个library
+    api project(":mvvm")
+    api project(":mvvm_network")
+    api project(":mvvm_navigation")
+}

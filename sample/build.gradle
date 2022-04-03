@@ -63,7 +63,9 @@ dependencies {
     implementation Dependencies.materialHeader
     implementation Dependencies.ballFooter
     implementation Dependencies.lottie
-    def alvinMVVMVersion = "v1.0.5"
+    def alvinMVVMVersion = JetpackMaven.mavenVersion
+    implementation project(path: ':base_mvvm')
+    //    implementation "com.github.Chen-Xi-g.MVVMFramework:base_mvvm:${alvinMVVMVersion}"
     implementation project(path: ':mvvm')
 //    implementation "com.github.Chen-Xi-g.MVVMFramework:mvvm_framework:${alvinMVVMVersion}"
     implementation project(path: ':mvvm_network')

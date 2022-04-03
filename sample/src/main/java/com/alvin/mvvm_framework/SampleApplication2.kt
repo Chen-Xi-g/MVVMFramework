@@ -1,43 +1,36 @@
 package com.alvin.mvvm_framework
 
 import android.app.Application
-import com.alvin.mvvm.base.application.IMVVM
+import com.alvin.base_mvvm.base.IBaseMVVM
 import com.alvin.mvvm_framework.base.Constant
 import com.alvin.mvvm_framework.base.interceptor.ParameterInterceptor
 import com.alvin.mvvm_framework.base.interceptor.ResponseInterceptor
 import com.alvin.mvvm_framework.base.setting.BaseActivitySetting
 import com.alvin.mvvm_framework.base.setting.BaseFragmentSetting
-import com.alvin.mvvm_network.application.INetWork
-import com.blankj.utilcode.util.Utils
 import java.util.concurrent.TimeUnit
 
 /**
- * <h3> 作用类描述：Application</h3>
+ * <h3> 作用类描述：集成BaseMVVM的初始化</h3>
  *
  * @Package :        com.alvin.mvvm_framework
- * @Date :           2022/3/4
+ * @Date :           2022/4/3
  * @author 高国峰
  */
-class SampleApplication : Application(), IMVVM, INetWork {
-
+class SampleApplication2 : Application(), IBaseMVVM {
     override fun onCreate() {
         super.onCreate()
-        // 初始化MVVM框架
-        initMVVM(this, BaseActivitySetting(), BaseFragmentSetting(), BuildConfig.DEBUG)
-        /* 两种配置网络请求，选择其一即可 */
-        // 初始化网络请求，默认配置
-//        initNetwork(baseUrl = "https://www.wanandroid.com")
-        // 初始化网络请求, 自定义配置
-        initNetwork(
-            // 基础url
-            baseUrl = "https://www.wanandroid.com",
-            // 时间单位
+        // 使用默认配置
+        initBaseMVVM(this, "https://www.wanandroid.com/")
+        // 自定义配置
+        initBaseMVVM(
+            this,
+            "https://www.wanandroid.com/",
+            BaseActivitySetting(),
+            BaseFragmentSetting(),
+            isDebug = BuildConfig.DEBUG,
             timeUnit = TimeUnit.SECONDS,
-            // 时间
             timeout = 30,
-            // 是否重试
             retryOnConnection = true,
-            // 多域名配置
             domain = {
                 Constant.domainList.forEach { map ->
                     map.forEach {
@@ -47,18 +40,15 @@ class SampleApplication : Application(), IMVVM, INetWork {
                     }
                 }
             },
-            // 是否隐藏网络请求中的竖线
+            // 是否打印
             hideVerticalLine = true,
             // 请求标识
             requestTag = "Request 请求参数",
-            // 响应表示
+            // 响应标识
             responseTag = "Response 响应结果",
-            // 是否Debug
-            isDebug = BuildConfig.DEBUG,
             // 拦截器
             ResponseInterceptor(),
             ParameterInterceptor()
         )
-        Utils.init(this)
     }
 }
