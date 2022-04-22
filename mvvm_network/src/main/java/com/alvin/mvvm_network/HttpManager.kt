@@ -78,7 +78,7 @@ class HttpManager {
     /**
      * 初始化OkHttpBuilder
      */
-    private fun initHttpBuilder() {
+    private fun initHttpBuilder(okHttpClientBuild: OkHttpClient.Builder.() -> Unit) {
 
         okHttpBuilder = RetrofitUrlManager.getInstance().with(
             OkHttpClient.Builder()
@@ -92,6 +92,7 @@ class HttpManager {
                 .retryOnConnectionFailure(retryOnConnectionFailure)
                 // 配置日志连接器
                 .addInterceptor(loggingInterceptor)
+                .apply(okHttpClientBuild)
         )
         if (interceptorHashSet.isNotEmpty()) {
             interceptorHashSet.forEach {
@@ -125,7 +126,7 @@ class HttpManager {
         netInterceptor: MutableList<Interceptor> = mutableListOf()
     ): T {
         if (okHttpBuilder == null) {
-            initHttpBuilder()
+            initHttpBuilder {}
         }
 
         interceptor.forEach {
@@ -278,7 +279,7 @@ class HttpManager {
         }
     }
 
-    fun build() {
-        initHttpBuilder()
+    fun build(okHttpClientBuild: OkHttpClient.Builder.() -> Unit = {}) {
+        initHttpBuilder(okHttpClientBuild)
     }
 }
