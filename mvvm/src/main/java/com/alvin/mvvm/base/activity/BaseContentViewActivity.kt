@@ -29,7 +29,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.alvin.mvvm.R
-import com.alvin.mvvm.databinding.ActivityBaseBinding
+import com.alvin.mvvm.databinding.MvvmActivityBaseBinding
 import com.gyf.immersionbar.ktx.immersionBar
 
 /**
@@ -90,11 +90,11 @@ abstract class BaseContentViewActivity : BaseDialogActivity() {
     private var _titleLayout: FrameLayout? = null
     val titleLayout get() = _titleLayout!!
 
-    private lateinit var contentView: ActivityBaseBinding
+    private lateinit var contentView: MvvmActivityBaseBinding
 
     override fun initDataBinding() {
         contentView =
-            DataBindingUtil.setContentView(this, R.layout.activity_base)
+            DataBindingUtil.setContentView(this, R.layout.mvvm_activity_base)
         contentView.lifecycleOwner = this
         _contentLayout = contentView.baseContentLayout
         initLayoutBinding()

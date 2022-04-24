@@ -30,7 +30,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.alvin.mvvm.R
-import com.alvin.mvvm.databinding.FragmentBaseBinding
+import com.alvin.mvvm.databinding.MvvmFragmentBaseBinding
 import com.gyf.immersionbar.ktx.immersionBar
 
 /**
@@ -91,7 +91,7 @@ abstract class BaseContentViewFragment : BaseDialogFragment() {
     private var _titleLayout: FrameLayout? = null
     val titleLayout get() = _titleLayout!!
 
-    private lateinit var contentView: FragmentBaseBinding
+    private lateinit var contentView: MvvmFragmentBaseBinding
 
 
     override fun onCreateView(
@@ -99,7 +99,8 @@ abstract class BaseContentViewFragment : BaseDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        contentView = DataBindingUtil.inflate(inflater, R.layout.fragment_base, container, false)
+        contentView =
+            DataBindingUtil.inflate(inflater, R.layout.mvvm_fragment_base, container, false)
         contentView.lifecycleOwner = this
         _contentLayout = contentView.baseContentLayout
         initLayoutBinding()

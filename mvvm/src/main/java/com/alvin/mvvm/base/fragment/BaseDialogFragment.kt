@@ -87,7 +87,7 @@ abstract class BaseDialogFragment : BaseFragment() {
      */
     @LayoutRes
     open fun dialogView(): Int {
-        return R.layout.dialog_loading
+        return R.layout.mvvm_dialog_loading
     }
 
     fun dialogMaxWidth(widthPx: Int) {

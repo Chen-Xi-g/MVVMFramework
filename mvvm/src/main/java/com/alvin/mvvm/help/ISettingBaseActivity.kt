@@ -133,14 +133,14 @@ interface ISettingBaseActivity {
      *
      * 默认右侧Menu Icon为 [androidx.appcompat.widget.AppCompatImageButton] ->`ibBarRight` 进行右侧Icon设置.
      *
-     * @see R.layout.activity_base_title 默认布局
+     * @see R.layout.mvvm_activity_base_title 默认布局
      * @return 默认值 `ActivityBaseTitleBinding`
      */
     fun <T : ViewDataBinding?> putTitleView(
         inflater: LayoutInflater,
         parent: ViewGroup
     ): T? =
-        DataBindingUtil.inflate(inflater, R.layout.activity_base_title, parent, true)
+        DataBindingUtil.inflate(inflater, R.layout.mvvm_activity_base_title, parent, true)
 
     /**
      * 第一次加载布局时显示的Loading
@@ -152,19 +152,19 @@ interface ISettingBaseActivity {
         inflater: LayoutInflater,
         parent: ViewGroup
     ): T? =
-        DataBindingUtil.inflate(inflater, R.layout.include_base_loading, parent, true)
+        DataBindingUtil.inflate(inflater, R.layout.mvvm_include_base_loading, parent, true)
 
     /**
      * 添加加载失败的布局ID
      *
-     * @see R.layout.activity_base 默认加载失败的布局
+     * @see R.layout.mvvm_activity_base 默认加载失败的布局
      * @return 默认值 `ActivityBaseNonetBinding`
      */
     fun <T : ViewDataBinding?> putNoNetView(
         inflater: LayoutInflater,
         parent: ViewGroup
     ): T? =
-        DataBindingUtil.inflate(inflater, R.layout.activity_base_nonet, parent, true)
+        DataBindingUtil.inflate(inflater, R.layout.mvvm_activity_base_nonet, parent, true)
 
 
     /**
@@ -209,7 +209,7 @@ interface ISettingBaseActivity {
      * @return
      */
     @LayoutRes
-    fun footerView(): Int = R.layout.base_adapter_footer
+    fun footerView(): Int = R.layout.mvvm_base_adapter_footer
 
     /**
      * 当列表数据为空时，显示的空数据布局
@@ -217,7 +217,7 @@ interface ISettingBaseActivity {
      * @return
      */
     @LayoutRes
-    fun emptyView(): Int = R.layout.base_empty_layout
+    fun emptyView(): Int = R.layout.mvvm_base_empty_layout
 
     /**
      * 全局设置刷新头
