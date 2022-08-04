@@ -1,5 +1,6 @@
 package com.alvin.mvvm_network.application
 
+import android.app.Application
 import com.alvin.mvvm_network.HttpManager
 import okhttp3.Interceptor
 import java.util.concurrent.TimeUnit
@@ -12,6 +13,10 @@ import java.util.concurrent.TimeUnit
  * @author 高国峰
  */
 interface INetWork {
+
+    companion object {
+        var application: Application? = null
+    }
 
     /**
      * 初始化网络请求
@@ -28,6 +33,7 @@ interface INetWork {
      * @param interceptors Array<out Interceptor> 拦截器
      */
     fun initNetwork(
+        application: Application,
         baseUrl: String,
         timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
         timeout: Long = 30 * 1000,
@@ -39,6 +45,7 @@ interface INetWork {
         isDebug: Boolean = false,
         vararg interceptors: Interceptor
     ) {
+        INetWork.application = application
         initNetwork {
             setBaseUrl(baseUrl) // 基础Url
             setTimeUnit(timeUnit) // 时间类型 秒， 框架默认值 毫秒

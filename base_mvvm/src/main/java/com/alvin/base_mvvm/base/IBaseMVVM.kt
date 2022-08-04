@@ -53,6 +53,7 @@ interface IBaseMVVM : IMVVM, INetWork {
     ) {
         initMVVM(application, iSettingBaseActivity, iSettingBaseFragment, isDebug)
         initNetwork(
+            application,
             baseUrl,
             timeUnit,
             timeout,

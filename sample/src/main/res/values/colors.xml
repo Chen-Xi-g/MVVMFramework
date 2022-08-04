@@ -7,10 +7,4 @@
     <color name="teal_700">#FF00796B</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <!-- 副标题颜色 -->
-    <color name="color_subtitle">#FF333333</color>
-    <!-- 文本内容颜色 -->
-    <color name="color_content">#FF666666</color>
-    <!-- 分割线颜色 -->
-    <color name="color_divider">#E6E6E6</color>
 </resources>

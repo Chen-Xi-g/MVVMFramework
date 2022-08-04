@@ -1,20 +1,14 @@
 package com.alvin.mvvm_framework.base.setting
 
 import android.content.Context
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.alvin.mvvm.help.ISettingBaseFragment
 import com.alvin.mvvm_framework.R
 import com.blankj.utilcode.util.ClickUtils
-import com.scwang.smart.refresh.footer.BallPulseFooter
 import com.scwang.smart.refresh.header.MaterialHeader
-import com.scwang.smart.refresh.layout.api.RefreshFooter
 import com.scwang.smart.refresh.layout.api.RefreshHeader
 
 /**
@@ -85,9 +79,9 @@ class BaseFragmentSetting : ISettingBaseFragment {
     /**
      * @return Int 加载失败时，点击重试的 View ID
      */
-    override fun noNetClickId(): Int {
-        return R.id.tvReClick
-    }
+//    override fun noNetClickId(): Int {
+//        return R.id.tvReClick
+//    }
 
     /**
      * @return Boolean 加载失败时，显示失败布局
@@ -99,39 +93,39 @@ class BaseFragmentSetting : ISettingBaseFragment {
     /**
      * @return T? 自定义标题布局
      */
-    override fun <T : ViewDataBinding?> putTitleView(
-        inflater: LayoutInflater,
-        parent: ViewGroup
-    ): T? {
-        return DataBindingUtil.inflate(inflater, R.layout.sample_title_layout, parent, true)
-    }
+//    override fun <T : ViewDataBinding?> putTitleView(
+//        inflater: LayoutInflater,
+//        parent: ViewGroup
+//    ): T? {
+//        return DataBindingUtil.inflate(inflater, R.layout.sample_title_layout, parent, true)
+//    }
 
     /**
      * @return T? 自定义加载中布局
      */
-    override fun <T : ViewDataBinding?> putLoadingView(
-        inflater: LayoutInflater,
-        parent: ViewGroup
-    ): T? {
-        return DataBindingUtil.inflate(inflater, R.layout.sample_loading_layout, parent, true)
-    }
+//    override fun <T : ViewDataBinding?> putLoadingView(
+//        inflater: LayoutInflater,
+//        parent: ViewGroup
+//    ): T? {
+//        return DataBindingUtil.inflate(inflater, R.layout.sample_loading_layout, parent, true)
+//    }
 
     /**
      * @return T? 自定义加载失败布局
      */
-    override fun <T : ViewDataBinding?> putNoNetView(
-        inflater: LayoutInflater,
-        parent: ViewGroup
-    ): T? {
-        return DataBindingUtil.inflate(inflater, R.layout.sample_no_net_layout, parent, true)
-    }
+//    override fun <T : ViewDataBinding?> putNoNetView(
+//        inflater: LayoutInflater,
+//        parent: ViewGroup
+//    ): T? {
+//        return DataBindingUtil.inflate(inflater, R.layout.sample_no_net_layout, parent, true)
+//    }
 
     /**
      * @return Int 返回按钮样式
      */
-    override fun titleLeftIcon(): Int {
-        return R.drawable.sample_ic_action_back
-    }
+//    override fun titleLeftIcon(): Int {
+//        return R.drawable.sample_ic_action_back
+//    }
 
     /**
      * 标题控件全局操作
@@ -167,9 +161,9 @@ class BaseFragmentSetting : ISettingBaseFragment {
     /**
      * @return RefreshFooter 设置加载更多样式
      */
-    override fun setRefreshFooter(context: Context?): RefreshFooter {
-        return BallPulseFooter(context)
-    }
+//    override fun setRefreshFooter(context: Context?): RefreshFooter {
+//        return BallPulseFooter(context)
+//    }
 
     /**
      * @return Int List 分页第一页默认值
@@ -188,14 +182,14 @@ class BaseFragmentSetting : ISettingBaseFragment {
     /**
      * @return Int 分页无数据显示的底部局
      */
-    override fun footerView(): Int {
-        return R.layout.sample_list_footer_layout
-    }
+//    override fun footerView(): Int {
+//        return R.layout.sample_list_footer_layout
+//    }
 
     /**
      * @return Int 分页无数据显示的布局内容
      */
-    override fun emptyView(): Int {
-        return R.layout.sample_list_empty_layout
-    }
+//    override fun emptyView(): Int {
+//        return R.layout.sample_list_empty_layout
+//    }
 }

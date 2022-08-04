@@ -110,10 +110,6 @@ class HttpManager {
             .build()
     }
 
-    fun getOkHttpBuilder(): OkHttpClient.Builder? {
-        return okHttpBuilder
-    }
-
     /**
      * 获取Retrofit的实例对象
      * @param apiClass 传入`Retrofit`的Api类
@@ -126,7 +122,7 @@ class HttpManager {
         netInterceptor: MutableList<Interceptor> = mutableListOf()
     ): T {
         if (okHttpBuilder == null) {
-            initHttpBuilder {}
+            build { }
         }
 
         interceptor.forEach {
@@ -211,7 +207,8 @@ class HttpManager {
     }
 
     /**
-     * 设置 Http 日志拦截器
+     * 设置 Http 日志拦截器，默认拦截器为[AndroidLoggingInterceptor](https://github.com/fengzhizi715/saf-logginginterceptor)
+     *
      * @param isDebug true： 开发环境
      *                false: 正式环境
      * @param hideVerticalLine 是否隐藏打印的边界， 方便复制粘贴
@@ -237,11 +234,11 @@ class HttpManager {
     }
 
     /**
-     * 添加拦截器集合
+     * 设置拦截器集合
      * @param interceptorHashSet 拦截器集合 使用 HashSet 防止添加重复拦截器
      */
     fun setInterceptorList(interceptorHashSet: HashSet<Interceptor>) = apply {
-        this.interceptorHashSet.addAll(interceptorHashSet)
+        this.interceptorHashSet = interceptorHashSet
     }
 
     /**

@@ -29,6 +29,7 @@ class SampleApplication : Application(), IMVVM, INetWork {
 //        initNetwork(baseUrl = "https://www.wanandroid.com")
         // 初始化网络请求, 自定义配置
         initNetwork(
+            application = this,
             // 基础url
             baseUrl = "https://www.wanandroid.com",
             // 时间单位

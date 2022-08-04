@@ -13,14 +13,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MVVMFramework">
-        <activity android:name=".ui.activity.SampleDefaultRecyclerActivity" />
-        <!-- 避免横竖屏切换重新创建Activity android:configChanges="orientation|keyboardHidden|screenSize|uiMode" -->
-        <activity
-            android:name=".ui.activity.SampleCustomRecyclerActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize|uiMode" />
-        <activity
-            android:name=".ui.activity.SampleStatusLayoutActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize|uiMode" />
         <activity
             android:name=".LaunchActivity"
             android:exported="true"
@@ -32,10 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.activity.SampleMainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize|uiMode"
-            android:launchMode="singleTask" />
     </application>
 
 </manifest>

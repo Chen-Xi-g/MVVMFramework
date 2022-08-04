@@ -14,12 +14,8 @@ object JetpackMaven {
     /*   发布插件的相关属性     */
 
     const val mavenGroup = "com.alvin.mvvm"
-    const val mavenVersion = "1.1.3"
+    const val mavenVersion = "2.0.0"
 
-    const val baseMVVMArtifactId = "base_mvvm"
-    const val mvvmArtifactId = "mvvm_framework"
-    const val mvvmNetworkArtifactId = "mvvm_network"
-    const val mvvmNavigationArtifactId = "mvvm_navigation"
 }
 
 object AndroidConfig {
@@ -53,7 +49,6 @@ object Dependencies {
 
     private const val materialDialogVersion = "3.3.0"
 
-    private const val adapterVersion = "3.0.4"
     private const val recyclerDividerVersion = "3.5.0"
 
     private const val loadingAnimVersion = "2.1.3"
@@ -102,13 +97,12 @@ object Dependencies {
     const val refreshHeaderClassics = "com.scwang.smart:refresh-header-classics:$refreshVersion"
     const val materialHeader = "com.scwang.smart:refresh-header-material:$refreshVersion"
     const val refreshFooterClassics = "com.scwang.smart:refresh-footer-classics:$refreshVersion"
-    const val ballFooter = "com.scwang.smart:refresh-footer-ball:$refreshVersion"
 
     /*  Material Dialog  */
     const val materialDialog = "com.afollestad.material-dialogs:core:$materialDialogVersion"
 
     /*  Adapter  */
-    const val adapter = "com.github.CymChad:BaseRecyclerViewAdapterHelper:$adapterVersion"
+    const val adapter = ":RVAD"
 
     /*  分割  */
     const val recyclerDivider = "com.github.fondesa:recycler-view-divider:$recyclerDividerVersion"
@@ -131,6 +125,4 @@ object Dependencies {
 
     /*  工具类  */
     const val utils = "com.blankj:utilcodex:$utilsVersion"
-
-    const val lottie = "com.airbnb.android:lottie:$lottieVersion"
 }

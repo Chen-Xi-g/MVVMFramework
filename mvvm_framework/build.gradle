@@ -1,0 +1,34 @@
+apply from:("../gradle/build_library.gradle")
+
+dependencies {
+
+    // lifecycle
+    api Dependencies.lifecycleRuntimeKtx
+    api Dependencies.lifecycleCommonKtx
+    api Dependencies.lifecycleExtensionsKtx
+    // ViewModel
+    api Dependencies.lifecycleViewModelKtx
+    // LiveData
+    api Dependencies.lifecycleLiveDataKtx
+    // 状态栏工具类
+    api Dependencies.immersionBar
+    api Dependencies.immersionBarKtx
+    // 屏幕适配
+    api Dependencies.androidAutoSize
+
+    // Recyclerview 刷新
+    api  Dependencies.refreshCore
+    api  Dependencies.refreshHeaderClassics
+    api  Dependencies.refreshFooterClassics
+
+    // Dialog
+    api Dependencies.materialDialog
+
+    // Adapter, 如果需要使用内置的BaseListActivity则需要引入RVAD依赖，否则无法使用
+    compileOnly project(Dependencies.adapter)
+    // 分割线
+    api Dependencies.recyclerDivider
+
+    // 加载动画
+    api Dependencies.loadingAnim
+}

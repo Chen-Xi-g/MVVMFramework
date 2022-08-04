@@ -1,26 +1,8 @@
 apply from:("../gradle/build_library.gradle")
 dependencies {
+    api project(':mvvm_framework')
     // base_mvvm 集成三个library
-    api project(":mvvm")
     api project(":mvvm_network")
     api project(":mvvm_navigation")
-}
-task androidSourcesJar(type: Jar) {
-    archiveClassifier.set('sources')
-    from android.sourceSets.main.java.srcDirs
-}
-
-afterEvaluate {
-    publishing {
-        publications {
-            // Creates a Maven publication called "release".
-            release(MavenPublication) {
-                from components.release
-                artifact androidSourcesJar
-                groupId = JetpackMaven.mavenGroup
-                artifactId = JetpackMaven.baseMVVMArtifactId
-                version = JetpackMaven.mavenVersion
-            }
-        }
-    }
+    api project(":RVAD")
 }

@@ -8,7 +8,7 @@
 
 支持动态加载多状态布局：加载中、成功、失败、标题；
 
-支持快速生成ListActivity、ListFragment；
+支持快速使用ListActivity、ListFragment；
 
 支持使用插件快速生成适用于本框架的Activity、Fragment、ListActivity、ListFragment。
 
@@ -22,13 +22,21 @@
 
 ## 基于MVVM进行快速开发， 上手即用。（重构已完成，正在编写SampleApp）
 
-> 对基础框架进行模块分离, 分为 `MVVM Library`--`MVVM Navigation Library`--`MVVM Network Library`
-> 可基于业务需求使用 `MVVM Library` 、`MVVM Navigation Library`、`MVVM Network Library`
+> 对基础框架进行模块分离, 分为 `MVVM Library`--`MVVM Navigation Library`--`MVVM Network Library`--`RVAD`
+> 可基于业务需求使用 `MVVM Library` 、`MVVM Navigation Library`、`MVVM Network Library`、`RVAD`
 
 已开发一键生成代码模板, 创建适用于本框架的Activity和Fragment.
 具体查看[AlvinMVVMPlugin_4_3](https://github.com/Chen-Xi-g/AlvinMVVMPlugin_4_3)
 
 ## 如何集成
+
+| 说明            | 依赖地址                                                     | 版本号                                                       |
+| --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| BaseMVVM        | implementation 'com.github.Chen-Xi-g.MVVMFramework:base_mvvm:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
+| MVVM 基类       | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_framework:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
+| MVVM Network    | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_network:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
+| MVVM Navigation | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_navigation:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
+| RVAD            | implementation 'com.github.Chen-Xi-g.MVVMFramework:rvad:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
 
 To get a Git project into your build:
 
@@ -38,10 +46,10 @@ Add it in your root build.gradle at the end of repositories:
 
 ```groovy
 allprojects {
-	repositories {
-		...
-		maven { url 'https://jitpack.io' }
-	}
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
 }
 ```
 
@@ -49,29 +57,22 @@ allprojects {
 
 ```groovy
 dependencies {
-	// BaseMVVM 同时集成了 MVVM、MVVM Network、MVVM Navigation
-	implementation 'com.github.Chen-Xi-g.MVVMFramework:base_mvvm:Tag'
-	// MVVM 基类
-	implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_framework:Tag'
-	// MVVM Network 只负责网络处理
-	implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_network:Tag'
-	// MVVM Navigation 组件抽离
-	implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_navigation:Tag'
+    // BaseMVVM 同时集成了 MVVM、MVVM Network、MVVM Navigation
+    implementation 'com.github.Chen-Xi-g.MVVMFramework:base_mvvm:Tag'
+    // MVVM 基类
+    implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_framework:Tag'
+    // MVVM Network 只负责网络处理
+    implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_network:Tag'
+    // MVVM Navigation 组件抽离
+    implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_navigation:Tag'
+    // 快速使用RecyclerView的RVAD适配器
+    implementation 'com.github.Chen-Xi-g.MVVMFramework:rvad:Tag'
 }
 ```
 
-| 说明            | 依赖地址                                                     | 版本号                                                       |
-| --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| BaseMVVM        | implementation 'com.github.Chen-Xi-g.MVVMFramework:base_mvvm:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
-| MVVM 基类       | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_framework:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
-| MVVM Network    | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_network:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
-| MVVM Navigation | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_navigation:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
-
-依赖引入后，需要初始化依赖，下面是模块化初始化流程。
-
 ### 合并集成
 
-合并集成只需要引入`BaseMVVM`即可，内部 默认集成了`MVVM`、`MVVMNetwork`、`MVVMNavigation`
+合并集成只需要引入`BaseMVVM`即可，内部 默认集成了`MVVM`、`MVVMNetwork`、`MVVMNavigation`、`RVAD`
 ，只需要实现`com.alvin.base_mvvm.base.IBaseMVVM`接口就可以直接使用。
 
 #### 1.实现IBaseMVVM接口
@@ -363,29 +364,14 @@ fun getArticleListData(page: Int, pageSize: Int) {
     * `ErrorLayout` 当网络请求发生错误，需要对用户进行友好的提示。
     * `LoadingLayout` 正在加载数据的布局，给用户一个良好的体验，避免首次进入页面显示的布局没有数据。
 5. `BaseVMActivity`实现`ViewMode`的`Activity`基类，通过泛型对`ViewModel`进行实例化。并且通过`BaseViewModel`进行公共操作。
-6. `BaseMVVMActivity` 所有`Activity`最终需要继承的`MVVM`类，通过传入`DataBinding`和`ViewModel`的泛型进行初始化操作，在构造参数中还需要获取`Layout`布局
-7. `BaseListActivity`适用于列表的`Activity`，分页操作、上拉加载、下拉刷新、空布局、头布局、底布局封装。
+6. `BaseMVVMActivity` 所有`Activity`最终需要继承的`MVVM`类，通过传入`DataBinding`和`ViewModel`
+   的泛型进行初始化操作，在构造参数中还需要获取`Layout`布局
+7. `BaseListActivity`适用于列表的`Activity`，分页操作、上拉加载、下拉刷新、暂无更多数据封装。(
+   如果需要使用内置的BaseListActivity则需要引入RVAD依赖，否则无法使用)
 
 #### Fragment封装
 
 根据你的需要进行不同的封装，我比较倾向于和`Activity`具有相同功能的封装，也就是`Activity`封装的功能我`Fragment`也要有。这样在使用`Navigation`的时候可以减少`Activity`和`Fragment`的差异。这里直接参考Activity的封装
-
-#### Adapter封装
-
-每个项目中肯定会有列表的页面，所以还需要对`Adapter`进行`DataBinding`适配，这里使用的Adapter是[BRVAH](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)。
-
-```kotlin
-abstract class BaseBindingListAdapter<T, DB : ViewDataBinding>(
-    @LayoutRes private val layoutResId: Int
-) : BaseQuickAdapter<T, BaseViewHolder>(layoutResId) {
-
-    abstract fun convert(holder: BaseViewHolder, item: T, dataBinding: DB?)
-
-    override fun convert(holder: BaseViewHolder, item: T) {
-        convert(holder, item, DataBindingUtil.bind(holder.itemView))
-    }
-}
-```
 
 #### LiveData封装
 
@@ -453,15 +439,114 @@ open class BaseViewModel : ViewModel() {
 
 使用 `Retrofit` + `OkHttp` + `Moshi` 对网络请求进行封装，使用密封类自定义异常处理。
 
+* `application`初始化接口
+
+* `exception`错误回调处理
+
+    * 当网络请求发生错误时，可以在`string.xml`中覆盖原有内容，自定义全局错误文本。
+
+      ```xml
+      <string name="mv_net_unknown">请求失败，请稍后再试。</string>
+      <string name="mv_net_parse">解析错误，请稍后再试。</string>
+      <string name="mv_net_timeout">请求超时，请稍后再试。</string>
+      <string name="mv_net_network">网络连接错误，请稍后重试。</string>
+      <string name="mv_net_ssl">证书出错，请稍后再试。</string>
+      ```
+
+**HttpManager**提供了一些基础的函数，这些函数基本都是OkHttp的函数，只是为了方便设置。
+
+* `instanceRetrofit()`获取Retrofit的实例对象
+* `setBaseUrl()`设置网络请求的BaseUrl
+* `setTimeUnit()`设置OkHttpBuilder默认时间类型。
+* `setReadTimeout()`设置读取超时时间
+* `setWriteTimeout()`设置写入超时时间
+* `setConnectTimeout()`连接超时时间
+* `setRetryOnConnectionFailure()`超时后是否自动重连
+* `setLoggingInterceptor()`设置自定义拦截器或内置日志拦截器
+* `addInterceptorList()`添加拦截器
+* `setInterceptorList()`设置拦截器
+* `setProxy()`设置是否使用带理 默认不使用
+* `setDomain()`设置多域名
+
+### RVAD
+
+> 对于适配器的工作，一般都是一些重复的工作，比如创建Adapter，选择布局，设置各种事件回调，还有状态处理.
+>
+>为了处理上面的问题，使用Kotlin扩展函数与Lambda表达式进行封装，减少重复性工作.
+
+#### ReuseAdapter
+
+1. 公共变量
+    1. `rv`RecyclerView
+    2. `list`返回当前Adapter设置的数据集.
+    3. `typeLayouts`已经设置的指定类型布局,适配多布局.
+    4. `headerList`已经设置头布局集合
+    5. `footerList`已经设置的尾布局集合
+    6. `headerCount`头布局数量
+    7. `footerCount`尾布局数量
+    8. `shakeEnable`当前Adapter是否需要设置防抖
+    9. `checkedPosition`已选择条目的Position
+    10. `selectModel`设置当前选择模式
+    11. `checkedCount`已选择条目数量
+2. 函数
+    1. `onBind()`基于Lambda为`onBindViewHolder()`添加回调,用于对Item内容进行操作.
+    2. `addType<T>()`添加指定类型布局, 这里的泛型类型需要和Model类型一致, 否则无法找到向右布局.
+    3. `onItemClick()`为Recyclerview添加ItemView的点击事件回调.
+    4. `onItemLongClick()`为Recyclerview添加ItemView的长按事件回调.
+    5. `onChecked()`选择回调.
+    6. `onStickyAttachListener`吸顶监听.
+    7. `addOnItemChildClickListener()`为Recyclerview添加ItemView的子View的点击事件回调.
+    8. `addOnItemChildLongClickListener()`为Recyclerview添加ItemView的子View的长按事件回调.
+    9. `addHeader()`添加头布局
+    10. `setHeader()`设置头布局
+    11. `removeHeader()`删除头布局
+    12. `removeHeaderAll()`删除所有头布局
+    13. `isHeader()`判断是否为头布局
+    14. `addFooter()`添加尾布局
+    15. `setFooter()`设置尾布局
+    16. `removeFooter()`删除尾部据
+    17. `removeFooterAll()`删除所有尾部据
+    18. `isFooter()`判断是否为尾布局
+    19. `scrollRv()`滑动RecyclerView到指定索引
+    20. `checkedAll()`全选或取消全选.
+    21. `setChecked()`设置指定索引选中状态.
+    22. `checkedSwitch()`切换指定索引选中状态.
+    23. `getData<T>()`根据索引获取模型数据.
+    24. `setData()`设置数据.
+    25. `addData()`新增数据.
+    26. `removeAt()`删除数据.
+    27. `isCheckedAll()`当前是否已经全选.
+    28. `isSticky()`判断指定索引是否为吸顶布局
+
+#### ReuseAdapter.BaseViewHolder
+
+1. 公共变量
+    1. `_item`获取当前Item的数据.
+2. 函数
+    1. `getBinding<T>()`获取当前ItemView的ViewDataBinding对象.
+    2. `getHeaderBinding<T>()`获取头布局的ViewDataBinding对象
+    3. `getFooterBinding()`获取底布局的ViewDataBinding对象
+    4. `getType()`获取当前类型.
+    5. `getItem<T>()`通过泛型获取指定数据类型.
+    6. `getItemOrNull<T>()`获取当前类型数据, 如果找不到则返回null.
+    7. `findView<V>()`通过ViewId返回指定泛型View.
+    8. `expand()`展开Item.
+    9. `collapse()`收起Item.
+    10. `expandOrCollapse()`展开或收起Item.
+
+## 更新日志
+
+v1.x 初始化项目，功能基本完善。
+
+v2.0 新增RVAD快速使用RecyclerView
+
 ## 鸣谢
 
 > 该框架参考以下优秀开源项目,特此鸣谢. 不分先后按首字母排序.
 
 * [AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode) 安卓工具类库
 * [AVLoadingIndicatorView](https://github.com/HarlonWang/AVLoadingIndicatorView) 加载Loading动画
-* [BRVAH](https://github.com/CymChad/BaseRecyclerViewAdapterHelper) 万能Adapter
 * [DKVideoPlayer](https://github.com/Doikki/DKVideoPlayer) 安卓视频播放器
-* [JetPackMvvm](https://github.com/hegaojian/JetpackMvvm) 基于MVVM模式集成JetPack玩Android项目
 * [material-dialogs](https://github.com/afollestad/material-dialogs)
   一个漂亮、流畅、可扩展的对话框API，适用于Kotlin和Android。
 * [RecyclerViewDivider](https://github.com/fondesa/recycler-view-divider) 一个为RecyclerView配置分隔符的库。

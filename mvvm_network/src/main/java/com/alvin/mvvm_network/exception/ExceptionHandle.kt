@@ -34,42 +34,37 @@ import javax.net.ssl.SSLException
  */
 object ExceptionHandle {
     fun handleException(
-        throwable: Throwable?,
-        unknownMsg: String = "请求失败，请稍后再试。",
-        parseMsg: String = "解析错误，请稍后再试。",
-        networkMsg: String = "网络连接错误，请稍后重试。",
-        sslMsg: String = "证书出错，请稍后再试。",
-        timeoutMsg: String = "网络连接超时，请稍后重试。"
+        throwable: Throwable?
     ): ResponseThrowable {
         return when (throwable) {
             is ResponseThrowable -> throwable
             is HttpException -> ResponseThrowable(
-                SealedError.NetworkError(networkMsg),
+                SealedError.NetworkError(),
                 throwable.message()
             )
             is JsonDataException, is JsonEncodingException, is ParseException -> ResponseThrowable(
-                SealedError.ParseError(parseMsg),
+                SealedError.ParseError(),
                 throwable.message
             )
             is ConnectException -> ResponseThrowable(
-                SealedError.NetworkError(networkMsg),
+                SealedError.NetworkError(),
                 throwable.message
             )
-            is SSLException -> ResponseThrowable(SealedError.SslError(sslMsg), throwable.message)
+            is SSLException -> ResponseThrowable(SealedError.SslError(), throwable.message)
             is ConnectTimeoutException -> ResponseThrowable(
-                SealedError.TimeoutError(timeoutMsg),
+                SealedError.TimeoutError(),
                 throwable.message
             )
             is SocketTimeoutException -> ResponseThrowable(
-                SealedError.TimeoutError(timeoutMsg),
+                SealedError.TimeoutError(),
                 throwable.message
             )
             is UnknownHostException -> ResponseThrowable(
-                SealedError.Unknown(unknownMsg),
+                SealedError.Unknown(),
                 throwable.message
             )
             else -> ResponseThrowable(
-                SealedError.Unknown(unknownMsg),
+                SealedError.Unknown(),
                 throwable?.message
             )
         }
