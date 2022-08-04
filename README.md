@@ -36,7 +36,7 @@
 | MVVM 基类       | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_framework:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
 | MVVM Network    | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_network:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
 | MVVM Navigation | implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_navigation:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
-| RVAD            | implementation 'com.github.Chen-Xi-g.MVVMFramework:rvad:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
+| RVAD            | implementation 'com.github.Chen-Xi-g.MVVMFramework:RVAD:Tag' | [![MVVM](https://jitpack.io/v/Chen-Xi-g/MVVMFramework.svg)](https://jitpack.io/#Chen-Xi-g/MVVMFramework) |
 
 To get a Git project into your build:
 
@@ -65,8 +65,8 @@ dependencies {
     implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_network:Tag'
     // MVVM Navigation 组件抽离
     implementation 'com.github.Chen-Xi-g.MVVMFramework:mvvm_navigation:Tag'
-    // 快速使用RecyclerView的RVAD适配器
-    implementation 'com.github.Chen-Xi-g.MVVMFramework:rvad:Tag'
+   // 快速使用RecyclerView的RVAD适配器
+   implementation 'com.github.Chen-Xi-g.MVVMFramework:RVAD:Tag'
 }
 ```
 
